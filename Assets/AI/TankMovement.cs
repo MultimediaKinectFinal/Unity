@@ -14,7 +14,12 @@ public class TankMovement : MonoBehaviour
 
     void Update()
     {
-        // 只要玩家還在，坦克就會持續更新路徑追過去
+        // 加入檢查：如果 agent 沒有被啟動 (enabled)，就直接跳出，不執行後續邏輯
+        if (agent == null || !agent.enabled || !agent.isOnNavMesh)
+        {
+            return;
+        }
+
         if (playerTarget != null)
         {
             agent.SetDestination(playerTarget.position);
