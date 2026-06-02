@@ -5,7 +5,9 @@ public static class GameEvent
 {
     public static Action OnPlayerFire; 
     public static Action OnGameOver;
-
+    public static Action OnGameStart;
+    
+    
     // 跳彈<跳彈位置>
     public static Action<Vector3> OnShellBounce; 
     // 未擊穿<未擊穿位置>
@@ -14,5 +16,8 @@ public static class GameEvent
     public static Action<Vector3, string, int> OnArmorPenetrated;
 
     // 敵軍死亡<死亡座標, 擊殺分數>
-    public static Action<Vector3, int> OnEnemyDestroyed; 
+    public static Action<Vector3, int> OnEnemyDestroyed;
+
+    public static Action<int> OnUpdateScore;
+    public static Action<bool> OnWaitingLoad;
 }
