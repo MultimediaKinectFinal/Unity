@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class TankHealth : MonoBehaviour
 {
-    public float currentHP = 100f;
+    public TankData tankData;
+    public float currentHP;
     public int scoreValue = 100;
     private bool isDead = false;
 
     void Start() {
         Debug.Log("TankHealth 腳本已經載入並啟動了！");
+        currentHP = tankData.maxHP;
+        Debug.Log(gameObject.name + " 的初始血量為: " + currentHP);
     }
 
     void OnEnable()

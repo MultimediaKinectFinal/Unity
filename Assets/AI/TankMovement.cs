@@ -4,25 +4,19 @@ using UnityEngine.AI; // 這是控制導航最核心的套件
 public class TankMovement : MonoBehaviour
 {
     private NavMeshAgent agent;
-    public Transform playerTarget; // 我們會把玩家拖進來
 
-    void Start()
-    {
-        // 自動抓取坦克身上的 NavMeshAgent 元件
+    void Awake() { // 改用 Awake 確保先抓到 agent
         agent = GetComponent<NavMeshAgent>();
     }
 
-    void Update()
+    public void SetMoveTarget(Vector3 target, bool shouldMove)
     {
-        // 加入檢查：如果 agent 沒有被啟動 (enabled)，就直接跳出，不執行後續邏輯
-        if (agent == null || !agent.enabled || !agent.isOnNavMesh)
-        {
-            return;
-        }
+        if (agent == null || !agent.isOnNavMesh) return;
 
-        if (playerTarget != null)
+        agent.isStopped = !shouldMove; // 核心：由 Brain 決定停止還是移動
+        if (shouldMove)
         {
-            agent.SetDestination(playerTarget.position);
+            agent.SetDestination(target);
         }
     }
 }
