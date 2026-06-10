@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     public float kickSpeed = 50f;           // 砲管往上暴衝的速度
     private float targetRecoil = 0f;        // 目標後座力
     private float currentRecoil = 0f;       // 當前實際的後座力
-
+    
     void Start()
     {
         yawPivot = this.transform;
@@ -63,12 +63,24 @@ public class PlayerController : MonoBehaviour
         {
             if (loaded && GameManager.Instance.CurrentState == GameState.Playing)
             {
-                GameEvent.OnPlayerFire?.Invoke();
+                //GameEvent.OnPlayerFire?.Invoke();
+                //loaded = false;
+
+                //// 觸發後座力
+                //targetRecoil += recoilForce; 
+
+                //GameEvent.OnWaitingLoad?.Invoke(true);
+
+                Transform cameraTransform = Camera.main.transform;
+
+                // 廣播：將鏡頭的位置當作發射起點，鏡頭的正前方 (forward) 當作發射方向
+                GameEvent.OnPlayerFire?.Invoke(cameraTransform.position, cameraTransform.forward);
+
                 loaded = false;
-                
+
                 // 觸發後座力
-                targetRecoil += recoilForce; 
-                
+                targetRecoil += recoilForce;
+
                 GameEvent.OnWaitingLoad?.Invoke(true);
             }
         }

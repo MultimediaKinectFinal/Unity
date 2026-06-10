@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class GameEvent
 {
-    public static Action OnPlayerFire; 
+    //public static Action OnPlayerFire; 
     public static Action OnGameOver;
     public static Action OnGameStart;
     
@@ -19,5 +19,9 @@ public static class GameEvent
     public static Action<Vector3, int> OnEnemyDestroyed;
 
     public static Action<int> OnUpdateScore;
+    //public static Action<bool> OnWaitingLoad;
+
+    // 修改為帶有兩個 Vector3 參數的 Action (發射起點, 發射方向)
+    public static Action<Vector3, Vector3> OnPlayerFire;
     public static Action<bool> OnWaitingLoad;
 }
