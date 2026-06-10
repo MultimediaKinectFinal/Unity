@@ -23,4 +23,9 @@ public static class GameEvent
     public static Action<Vector3, Vector3> OnPlayerFire;
     public static Action<bool> OnWaitingLoad;
     public static Action<GameObject> EnemyCounterAttack;
+    public static Action<Vector3, int> OnEnemyDestroyed; 
+
+    // 擊中玩家的敵軍<敵軍位置>
+    public static Action<Vector3> WhichEnemyHitPlayer; 
+
 }
