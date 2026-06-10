@@ -51,26 +51,18 @@ public class TankBrain : MonoBehaviour
 
     void Update()
     {
-        // 偵錯用：確保兩者都有值
-        if (player == null) {
-            Debug.LogError("【報錯】Player 不見了！請檢查場景中的 Player 物件是否被誤刪或隱藏。");
-            return;
-        }
-        if (tankData == null) {
-            Debug.LogError("【報錯】TankData 遺失了！請檢查為何 ShermanData 被移除。");
-            return;
-        }
+        if (player == null || tankData == null) return;
 
+        // 只有在狀態發生改變時，才打印一次 Log
         if (currentState != lastState) {
-        Debug.Log(gameObject.name + " 狀態切換: " + lastState + " -> " + currentState);
-        lastState = currentState;
+            Debug.Log(gameObject.name + " 狀態切換: " + lastState + " -> " + currentState);
+            lastState = currentState;
         }
 
-        if (player == null) return;
+        // 刪除那兩行無用的強制重置代碼
 
         float distance = Vector3.Distance(transform.position, player.position);
-        currentState = TankState.Moving; // 強制初始化為移動狀態
-        Debug.Log("坦克已強制重置為 Moving 狀態！");
+        
 
         // Debug.Log("剩餘距離: " + agent.remainingDistance);
 
