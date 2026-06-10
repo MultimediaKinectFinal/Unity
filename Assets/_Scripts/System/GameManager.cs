@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public enum GameState
 {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     public int TotalScore { get; private set; }
     public int HighScore { get; private set; }
     private float playingStartTime; 
+
 
     private void Awake()
     {

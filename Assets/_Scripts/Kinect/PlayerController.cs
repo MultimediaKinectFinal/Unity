@@ -63,22 +63,12 @@ public class PlayerController : MonoBehaviour
         {
             if (loaded && GameManager.Instance.CurrentState == GameState.Playing)
             {
-                //GameEvent.OnPlayerFire?.Invoke();
-                //loaded = false;
-
-                //// 觸發後座力
-                //targetRecoil += recoilForce; 
-
-                //GameEvent.OnWaitingLoad?.Invoke(true);
-
                 Transform cameraTransform = Camera.main.transform;
 
-                // 廣播：將鏡頭的位置當作發射起點，鏡頭的正前方 (forward) 當作發射方向
                 GameEvent.OnPlayerFire?.Invoke(cameraTransform.position, cameraTransform.forward);
 
                 loaded = false;
 
-                // 觸發後座力
                 targetRecoil += recoilForce;
 
                 GameEvent.OnWaitingLoad?.Invoke(true);
