@@ -35,9 +35,9 @@ public class TankBrain : MonoBehaviour
     {
         if (Time.time >= fireTimer) 
         {
-            enemyFire.Shoot(); // 觸發開火
-            fireTimer = Time.time + tankData.fireRate; // 更新冷卻時間
-            currentState = TankState.Moving; // 射完變回 Moving 重新判斷
+            enemyFire.Shoot();
+            fireTimer = Time.time + tankData.fireRate;
+            // 刪除這裡原本的 currentState = TankState.Moving;
         }
     }
 
@@ -69,35 +69,43 @@ public class TankBrain : MonoBehaviour
         if (player == null) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
-        
+        currentState = TankState.Moving; // 強制初始化為移動狀態
+        Debug.Log("坦克已強制重置為 Moving 狀態！");
 
         // Debug.Log("剩餘距離: " + agent.remainingDistance);
+
+        Debug.Log("Agent Speed: " + agent.speed + " | CurrentState: " + currentState);
 
         switch (currentState)
         {
             case TankState.Moving:
+                // 讓 Agent 鎖定玩家為目標
                 tankMovement.SetMoveTarget(player.position, true);
-                if (distance <= tankData.attackRange && Time.time > stateChangeTime) 
+
+                // 關鍵判斷：利用 agent.remainingDistance 判斷是否已到達停止距離
+                // 當 pathPending 為 false 代表路徑計算完成，remainingDistance 為當前離目標距離
+                if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
                 {
                     currentState = TankState.Braking;
-                    stateChangeTime = Time.time + 0.5f; // 下次允許切換的時間
                 }
                 break;
 
             case TankState.Braking:
-                tankMovement.SetMoveTarget(transform.position, false);
-
-                if (Time.time > stateChangeTime) 
-                {
-                    currentState = TankState.Aiming;
-                    stateChangeTime = Time.time + 0.5f;
-                }
+                // 1. 強制設定目標並讓 Agent 停下
+                tankMovement.SetMoveTarget(transform.position, false); 
+                
+                // 2. 核心修正：將坦克強制錨定在當前位置，確保它不會再滑行
+                agent.Warp(transform.position); 
+                
+                // 3. 確保速度歸零
+                agent.velocity = Vector3.zero;
+                
+                currentState = TankState.Aiming;
                 break;
 
             case TankState.Aiming:
-                // 給它一點點時間把速度歸零，再進入瞄準
-                if (Time.time > stateChangeTime) 
-                {
+                // 原地不動
+                if (Time.time > stateChangeTime) {
                     currentState = TankState.Firing;
                     stateChangeTime = Time.time + 0.5f;
                 }
@@ -105,10 +113,9 @@ public class TankBrain : MonoBehaviour
 
             case TankState.Firing:
                 FireLogic();
-
-                if (Time.time > stateChangeTime) 
-                {
-                    currentState = TankState.Moving;
+                // 關鍵：保持在 Aiming 循環，絕不跳回 Moving
+                if (Time.time > stateChangeTime) {
+                    currentState = TankState.Aiming; 
                     stateChangeTime = Time.time + 0.5f;
                 }
                 break;
