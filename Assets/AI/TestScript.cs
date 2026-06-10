@@ -20,11 +20,32 @@ public class TestScript : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.C)) 
+        {
+            Debug.Log("測試：模擬擊中砲管 (部位: Cannon, 傷害: 10)");
+            TriggerTestEvent("Cannon", 10);
+        }
+
         // 2. 測試：模擬遊戲結束
         if (Input.GetKeyDown(KeyCode.G)) 
         {
             GameEvent.OnGameOver?.Invoke();
             Debug.Log("測試：已觸發遊戲結束事件！");
+        }
+    }
+
+    private void TriggerTestEvent(string part, int damage)
+    {
+        GameObject targetTank = GameObject.Find("Tank"); 
+        if (targetTank != null)
+        {
+            Vector3 hitPos = targetTank.transform.position;
+            // 觸發擊穿事件，TankHealth 會監聽到這個事件
+            GameEvent.OnArmorPenetrated?.Invoke(hitPos, part, damage);
+        }
+        else
+        {
+            Debug.LogWarning("找不到名為 Tank 的物件！");
         }
     }
 }

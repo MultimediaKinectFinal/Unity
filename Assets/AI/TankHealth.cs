@@ -8,6 +8,8 @@ public class TankHealth : MonoBehaviour
     public int scoreValue = 100;
     private bool isDead = false;
 
+    public bool isCannonDamaged = false;
+
     public Image healthBar;         // 負責顯示血量的圖片 (fillAmount)
     public Canvas healthBarCanvas;  // 負責 Billboard 效果的 Canvas
 
@@ -54,6 +56,14 @@ public class TankHealth : MonoBehaviour
         {
             Debug.Log($"坦克收到擊穿事件！部位: {part}, 當前血量: {currentHP}");
             currentHP -= damage;
+            UpdateHealthUI();
+            if (part == "Cannon") 
+            {
+                isCannonDamaged = true;
+                Debug.Log("砲管受損！無法發射！");
+                // 你可以在這裡加入一些視覺特效，例如砲管冒煙
+            }
+            
             if (part == "Track") 
             { 
                 GetComponent<UnityEngine.AI.NavMeshAgent>().speed = 0; // 斷履帶 

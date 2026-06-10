@@ -71,7 +71,7 @@ public class TankBrain : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.position);
         
 
-        Debug.Log("剩餘距離: " + agent.remainingDistance);
+        // Debug.Log("剩餘距離: " + agent.remainingDistance);
 
         switch (currentState)
         {
@@ -108,7 +108,7 @@ public class TankBrain : MonoBehaviour
 
                 if (Time.time > stateChangeTime) 
                 {
-                    currentState = TankState.Aiming;
+                    currentState = TankState.Moving;
                     stateChangeTime = Time.time + 0.5f;
                 }
                 break;

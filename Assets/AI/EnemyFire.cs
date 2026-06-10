@@ -4,6 +4,7 @@ public class EnemyFire : MonoBehaviour
 {
     // public GameObject shellPrefab; // 把剛剛做的 Prefab 拖進來
     public Transform firePoint;    // 坦克砲管前端的空物件
+    private TankHealth tankHealth;
 
     // 加上這一段測試用的 Update
     void Update()
@@ -18,6 +19,11 @@ public class EnemyFire : MonoBehaviour
 
     public void Shoot()
     {
+        if (tankHealth != null && tankHealth.isCannonDamaged)
+        {
+            Debug.Log("射擊失敗：砲管已損壞！");
+            return; 
+        }
         // 1. 在砲管位置生成砲彈
         // GameObject shell = Instantiate(shellPrefab, firePoint.position, firePoint.rotation);
         
