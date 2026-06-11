@@ -1,6 +1,5 @@
 using UnityEngine;
 
-using UnityEngine;
 public class ArmorPlate : MonoBehaviour
 {
     [Header("裝甲設定")]
