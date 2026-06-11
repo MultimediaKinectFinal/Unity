@@ -1,6 +1,7 @@
 {
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "com.rorygames.vhacd": "https://github.com/rorygames/VHACD.git?path=/com.rorygames.vhacd",
     "com.unity.ide.rider": "3.0.40",
     "com.unity.ide.visualstudio": "2.0.27",
@@ -9,6 +10,13 @@
 >>>>>>> e1d15d4 (feat: add test scene and tank movement)
     "com.unity.multiplayer.center": "1.0.1",
 <<<<<<< HEAD
+=======
+    "com.unity.ai.navigation": "2.0.12",
+    "com.unity.multiplayer.center": "1.0.1",
+    "com.rorygames.vhacd": "https://github.com/rorygames/VHACD.git?path=/com.rorygames.vhacd",
+    "com.unity.ide.rider": "3.0.40",
+    "com.unity.ide.visualstudio": "2.0.27",
+>>>>>>> 237481cd48ae28c8efa53ad310873bb83a647d69
     "com.unity.probuilder": "6.0.9",
 =======
 >>>>>>> 847fc14 (feat: add unity ugui)

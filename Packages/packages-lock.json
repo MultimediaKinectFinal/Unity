@@ -1,6 +1,18 @@
 {
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    "com.unity.ai.navigation": {
+      "version": "2.0.12",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.ai": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+>>>>>>> 237481cd48ae28c8efa53ad310873bb83a647d69
     "com.rorygames.vhacd": {
       "version": "https://github.com/rorygames/VHACD.git?path=/com.rorygames.vhacd",
       "depth": 0,
