@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     [Header("旋轉靈敏度")]
     public float sensitivity = 200f;
 
+    [Header("畫圈移動量")]
+    public float moveAmount = 5f;
+
     [Header("上下旋轉角度限制 (Pitch)")]
     public float minPitch = -5f;
     public float maxPitch = 38f;
@@ -50,16 +53,47 @@ public class PlayerController : MonoBehaviour
         }
 
         GameEvent.OnWaitingLoad?.Invoke(!loaded);
+        GameEvent.KinectInput += handleInput;
     }
-    
+
+    private void OnDisable()
+    {
+        GameEvent.KinectInput -= handleInput;
+    }
+
     void Update()
     {
-        float rawInputX = Input.GetAxis("Horizontal");
-        float rawInputY = Input.GetAxis("Vertical");
-        
-        UpdateAim(rawInputX, rawInputY);
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))    handleInput('w');
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))  handleInput('s');
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))  handleInput('a');
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) handleInput('d');
+
+        UpdateAim(0f, 0f);
 
         if (Input.GetKeyDown(KeyCode.Space))
+        {
+           handleInput('f');
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            handleInput('l');
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            handleInput('z');
+        }
+
+        // 測試用按鍵
+        if (Input.GetKeyDown(KeyCode.G)) GameEvent.OnGameOver?.Invoke();
+        if (Input.GetKeyDown(KeyCode.P)) GameManager.Instance.StartPlaying();
+        if (Input.GetKeyDown(KeyCode.R)) GameManager.Instance.RestartGame();
+    }
+
+    void handleInput(char input)
+    {
+        if (input == 'f')
         {
             if (loaded && GameManager.Instance.CurrentState == GameState.Playing)
             {
@@ -75,7 +109,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (input == 'l')
         {
             if (GameManager.Instance.CurrentState == GameState.Playing)
             {
@@ -84,7 +118,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (input == 'z')
         {
             if (GameManager.Instance.CurrentState == GameState.Playing)
             {
@@ -92,10 +126,29 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // 測試用按鍵
-        if (Input.GetKeyDown(KeyCode.G)) GameEvent.OnGameOver?.Invoke();
-        if (Input.GetKeyDown(KeyCode.P)) GameManager.Instance.StartPlaying();
-        if (Input.GetKeyDown(KeyCode.R)) GameManager.Instance.RestartGame();
+        if (GameManager.Instance.CurrentState == GameState.Playing)
+        {
+            if (input == 'w')
+            {
+                currentPitch += moveAmount;
+                currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
+            }
+            if (input == 's')
+            {
+                currentPitch -= moveAmount;
+                currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
+            }
+            if (input == 'a')
+            {
+                currentYaw -= moveAmount;
+                currentYaw = Mathf.Clamp(currentYaw, -limitYaw, limitYaw);
+            }
+            if (input == 'd')
+            {
+                currentYaw += moveAmount;
+                currentYaw = Mathf.Clamp(currentYaw, -limitYaw, limitYaw);
+            }
+        }
     }
 
     private void UpdateAim(float hInput, float vInput)

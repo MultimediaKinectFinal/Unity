@@ -1,5 +1,6 @@
 using UnityEngine;
 using Windows.Kinect;
+using System;
 
 public class KinectIntegratedGesture : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class KinectIntegratedGesture : MonoBehaviour
     private float prevRightPosZ;
 
     [Header("4. 畫圈過濾設定 (Anti-Jitter & Rest)")]
-    public float angleTriggerThreshold = 180f;
+    public float angleTriggerThreshold = 90f;
     [Range(0.05f, 1f)] public float smoothingFactor = 0.3f;
     public float leftVelocityThreshold = 0.005f;
     public float rightVelocityThreshold = 0.015f;
@@ -133,6 +134,7 @@ public class KinectIntegratedGesture : MonoBehaviour
         if (!isSquatting && pelvisToKneeDist < squatThresholdHeight)
         {
             Debug.Log("換彈");
+            GameEvent.KinectInput?.Invoke('l');
             isSquatting = true; // 上鎖，直到下次站直前不會再觸發
 
             // 強制退出縮放模式並清空所有手勢累積
@@ -230,11 +232,13 @@ public class KinectIntegratedGesture : MonoBehaviour
         if (deltaDist > zoomInSensitivity)
         {
             Debug.Log("放大 (向外擴)");
+            GameEvent.KinectInput?.Invoke('z');
             ExitZoomMode();
         }
         else if (deltaDist < -zoomOutSensitivity)
         {
             Debug.Log("縮小 (向內縮)");
+            GameEvent.KinectInput?.Invoke('z');
             ExitZoomMode();
         }
     }
@@ -256,6 +260,7 @@ public class KinectIntegratedGesture : MonoBehaviour
             if (deltaZ > pullBackZVelocityThreshold && Time.time > shootCooldownEndTime)
             {
                 Debug.Log("發射");
+                GameEvent.KinectInput?.Invoke('f');
                 shootCooldownEndTime = Time.time + shootCooldown;
                 return true;
             }
@@ -275,12 +280,14 @@ public class KinectIntegratedGesture : MonoBehaviour
 
             if (leftAngleAccumulator <= -angleTriggerThreshold)
             {
-                Debug.Log("左轉 (順時鐘繞圈)");
+                Debug.Log("右轉 (順時鐘繞圈)");
+                GameEvent.KinectInput?.Invoke('d');
                 leftAngleAccumulator = 0f;
             }
             else if (leftAngleAccumulator >= angleTriggerThreshold)
             {
-                Debug.Log("右轉 (逆時鐘繞圈)");
+                Debug.Log("左轉 (逆時鐘繞圈)");
+                GameEvent.KinectInput?.Invoke('a');
                 leftAngleAccumulator = 0f;
             }
         }
@@ -301,11 +308,13 @@ public class KinectIntegratedGesture : MonoBehaviour
             if (rightAngleAccumulator <= -angleTriggerThreshold)
             {
                 Debug.Log("抬高 (向前繞圈)");
+                GameEvent.KinectInput?.Invoke('w');
                 rightAngleAccumulator = 0f;
             }
             else if (rightAngleAccumulator >= angleTriggerThreshold)
             {
                 Debug.Log("壓低 (向後繞圈)");
+                GameEvent.KinectInput?.Invoke('s');
                 rightAngleAccumulator = 0f;
             }
         }
