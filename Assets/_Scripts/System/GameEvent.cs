@@ -26,6 +26,6 @@ public static class GameEvent
     public static Action<Vector3, int> OnEnemyDestroyed; 
 
     // 擊中玩家的敵軍<敵軍位置>
-    public static Action<Vector3> WhichEnemyHitPlayer; 
+    public static Action<GameObject> WhichEnemyHitPlayer; 
 
 }
