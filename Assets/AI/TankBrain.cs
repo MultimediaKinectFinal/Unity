@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class TankBrain : MonoBehaviour
 {
-    public enum TankState { Moving, Braking, Aiming, Firing }
+    public enum TankState { Moving, Braking, Firing }
 
     public Transform player;
     public TankData tankData; // 拖入剛剛建立的 Data
@@ -29,15 +29,20 @@ public class TankBrain : MonoBehaviour
         } else {
             Debug.LogError("【關鍵修正】TankData 仍然是空的！請再次確認 Inspector 是否顯示 ShermanData");
         }
-    }
 
+        TestManager manager = FindAnyObjectByType<TestManager>();
+        if (manager != null) {
+            this.player = manager.playerTransform;
+        } else {
+            Debug.LogError("【關鍵修正】TestManager 沒有找到！請確保場上有一個 TestManager 物件，並且它已經啟動了！");
+        }
+    }
     private void FireLogic() 
     {
         if (Time.time >= fireTimer) 
         {
             enemyFire.Shoot();
             fireTimer = Time.time + tankData.fireRate;
-            // 刪除這裡原本的 currentState = TankState.Moving;
         }
     }
 
@@ -92,23 +97,13 @@ public class TankBrain : MonoBehaviour
                 // 3. 確保速度歸零
                 agent.velocity = Vector3.zero;
                 
-                currentState = TankState.Aiming;
-                break;
-
-            case TankState.Aiming:
-                // 原地不動
-                if (Time.time > stateChangeTime) {
-                    currentState = TankState.Firing;
-                    stateChangeTime = Time.time + 0.5f;
-                }
+                currentState = TankState.Firing;
                 break;
 
             case TankState.Firing:
                 FireLogic();
-                // 關鍵：保持在 Aiming 循環，絕不跳回 Moving
                 if (Time.time > stateChangeTime) {
-                    currentState = TankState.Aiming; 
-                    stateChangeTime = Time.time + 0.5f;
+                    stateChangeTime = Time.time + 3.0f;
                 }
                 break;
         }

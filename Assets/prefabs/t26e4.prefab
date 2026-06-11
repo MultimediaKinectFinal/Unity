@@ -165,6 +165,21 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 820e620a0f2d5e144bf6eb6a1916603c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2957349327159176882}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 820e620a0f2d5e144bf6eb6a1916603c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1173803637884955821}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 820e620a0f2d5e144bf6eb6a1916603c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7351491918766960994}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 820e620a0f2d5e144bf6eb6a1916603c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8027397383328219334}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 820e620a0f2d5e144bf6eb6a1916603c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4527272634922689057}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 820e620a0f2d5e144bf6eb6a1916603c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8006876200960426595}
     - targetCorrespondingSourceObject: {fileID: -835388434328061149, guid: 820e620a0f2d5e144bf6eb6a1916603c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7038800838253140742}
@@ -6414,3 +6429,91 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFireManager
   enemyTracerSpeed: 350
   enemyShellPrefab: {fileID: 0}
+--- !u!195 &1173803637884955821
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8656677186591415694}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 99
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 0
+--- !u!114 &7351491918766960994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8656677186591415694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20ce8e1e2760ff14fb069a98fe6cff06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TankMovement
+--- !u!114 &8027397383328219334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8656677186591415694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0c4ba510a628743a51efe3261f2a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TankBrain
+  player: {fileID: 0}
+  tankData: {fileID: 11400000, guid: 7fa58bc5381dd4f408ec8ef60869317e, type: 2}
+--- !u!54 &4527272634922689057
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8656677186591415694}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &8006876200960426595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8656677186591415694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5d91387e31390489bf2320d13a8b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyFire
+  firePoint: {fileID: 0}
