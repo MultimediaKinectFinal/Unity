@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TankHealth : MonoBehaviour
 {
@@ -9,8 +10,6 @@ public class TankHealth : MonoBehaviour
 
     public Image healthBar;         // 負責顯示血量的圖片 (fillAmount)
     public Canvas healthBarCanvas;  // 負責 Billboard 效果的 Canvas
-
-    public float maxHP = 100f;
 
     void Start() {
         Debug.Log("TankHealth 腳本已經載入並啟動了！");

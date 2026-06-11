@@ -80,6 +80,7 @@
         "com.unity.modules.uielements": "1.0.0"
       }
     },
+<<<<<<< HEAD
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.6",
       "depth": 4,
@@ -155,6 +156,8 @@
       },
       "url": "https://packages.unity.com"
     },
+=======
+>>>>>>> 847fc14 (feat: add unity ugui)
     "com.unity.ugui": {
       "version": "2.0.0",
       "depth": 0,

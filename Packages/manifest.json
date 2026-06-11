@@ -8,7 +8,10 @@
     "com.unity.ai.navigation": "2.0.12",
 >>>>>>> e1d15d4 (feat: add test scene and tank movement)
     "com.unity.multiplayer.center": "1.0.1",
+<<<<<<< HEAD
     "com.unity.probuilder": "6.0.9",
+=======
+>>>>>>> 847fc14 (feat: add unity ugui)
     "com.unity.ugui": "2.0.0",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.adaptiveperformance": "1.0.0",
