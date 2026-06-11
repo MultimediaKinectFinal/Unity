@@ -16,7 +16,6 @@ public class ShellVisualTracer : MonoBehaviour
         totalDistance = Vector3.Distance(start, end);
 
         transform.position = start;
-        // 讓特效物件朝向終點
         transform.LookAt(end);
     }
 
