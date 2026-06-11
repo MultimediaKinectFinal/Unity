@@ -81,9 +81,9 @@ public class ShellManager : MonoBehaviour
                               $"[數據] 實際穿深: {finalPenetration:F1}mm < 等效厚度: {finalEffectiveThickness:F1}mm (基礎: {armor.nominalThickness}mm/角度: {hitAngle:F1}°)\n" +
                               $"[結果] 砲彈被裝甲無傷擋下！</color> | 目標: {rootObject.name}");
 
-                    GameEvent.EnemyCounterAttack(rootObject);
                     GameEvent.OnShellBlock?.Invoke(cameraHit.point);
                 }
+                GameEvent.EnemyCounterAttack(rootObject);
                 SpawnVisualTracer(realMuzzleTransform.position, finalImpactPoint);
                 return;
             }
@@ -135,17 +135,24 @@ public class ShellManager : MonoBehaviour
 
         if (shellTracerPrefab == null)
         {
-            Debug.LogWarning("【ShellManager】未指定 shellTracerPrefab！將跳過飛行特效生成。");
+            // 🛠️ 防呆：如果沒手動拉 Prefab，在場景畫一條【青藍色 Cyan】Debug 線頂替
+            Debug.DrawLine(start, end, Color.cyan, 3.0f);
             return;
         }
-        GameObject tracerObj = Instantiate(shellTracerPrefab, start, Quaternion.identity);
 
-        ShellVisualTracer tracerScript = tracerObj.GetComponent<ShellVisualTracer>();
-        if (tracerScript == null)
+        // 1. 🛠️ 核心修改：在世界座標中心 (Vector3.zero) 生成這個射線 Prefab
+        GameObject tracerObj = Instantiate(shellTracerPrefab, Vector3.zero, Quaternion.identity);
+
+        // 2. 🛠️ 核心修改：獲取全新寫好的「瞬間連線控制腳本」(DistortionBeamEffect)
+        DistortionBeamEffect beamScript = tracerObj.GetComponent<DistortionBeamEffect>();
+        if (beamScript == null)
         {
-            tracerScript = tracerObj.AddComponent<ShellVisualTracer>();
+            beamScript = tracerObj.AddComponent<DistortionBeamEffect>();
         }
 
-        tracerScript.Initialize(start, end, tracerSpeed);
+        // 3. 🛠️ 核心修改：瞬間將玩家的「真實砲口 (start)」與「中彈判定點 (end)」連線！
+        beamScript.InitializeBeam(start, end);
+
+        // 💡 提示：因為現在射線是 0 秒瞬間連過去的，你可以直接在這裡播放中彈音效或就地觸發受擊特效了！
     }
 }

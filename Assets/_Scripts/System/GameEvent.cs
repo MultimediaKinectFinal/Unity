@@ -23,4 +23,5 @@ public static class GameEvent
     public static Action<Vector3, Vector3> OnPlayerFire;
     public static Action<bool> OnWaitingLoad;
     public static Action<GameObject> EnemyCounterAttack;
+    //public static Action<GameObject> 
 }
