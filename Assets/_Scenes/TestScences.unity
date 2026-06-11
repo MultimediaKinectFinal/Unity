@@ -781,7 +781,7 @@ MonoBehaviour:
   initialSpawnInterval: 5
   minSpawnInterval: 1
   difficultyRampUpTime: 10
-  maxEnemiesOnScreen: 5
+  maxEnemiesOnScreen: 1
 --- !u!4 &864822465
 Transform:
   m_ObjectHideFlags: 0
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5786a4408b4920b44aedeae8c1c77bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestManager
-  playerTransform: {fileID: 543450652239686995}
+  playerTransform: {fileID: 0}
 --- !u!1 &884891373
 GameObject:
   m_ObjectHideFlags: 0
