@@ -746,6 +746,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731053202}
   m_CullTransparentMesh: 1
+--- !u!4 &856338405 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ac13639f7adf402a93d4c71c7405af7, type: 3}
+  m_PrefabInstance: {fileID: 1494092472}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &864822463
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +763,7 @@ GameObject:
   - component: {fileID: 864822464}
   - component: {fileID: 864822466}
   - component: {fileID: 864822467}
+  - component: {fileID: 864822468}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -830,6 +836,19 @@ MonoBehaviour:
   shellPenetration: 200
   shellDamage: 620
   tracerSpeed: 250
+--- !u!114 &864822468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864822463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5786a4408b4920b44aedeae8c1c77bfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestManager
+  playerTransform: {fileID: 856338405}
 --- !u!1 &884891373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,51 +1299,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187263700}
   m_CullTransparentMesh: 1
---- !u!1 &1195960486
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1195960488}
-  - component: {fileID: 1195960487}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1195960487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195960486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5786a4408b4920b44aedeae8c1c77bfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestManager
-  playerTransform: {fileID: 0}
---- !u!4 &1195960488
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195960486}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.47083, y: -0, z: 22.22601}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1206887005
 GameObject:
   m_ObjectHideFlags: 0
@@ -3006,4 +2980,5 @@ SceneRoots:
   - {fileID: 4391450788607899163}
   - {fileID: 1789527683}
   - {fileID: 618939841}
+  - {fileID: 697436257}
   - {fileID: 1494092472}
