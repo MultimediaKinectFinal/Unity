@@ -120,6 +120,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b086b2651c440764da2905a30cd7ae42, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6361869670548793817}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b086b2651c440764da2905a30cd7ae42, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1135249220499313349}
     - targetCorrespondingSourceObject: {fileID: 5606786490806291068, guid: b086b2651c440764da2905a30cd7ae42, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5608687487092202784}
@@ -264,6 +267,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFire
   firePoint: {fileID: 0}
+--- !u!114 &-1135249220499313349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247019653045416112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d801176713e8694ba0bf95de8594551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TankHealth
+  tankData: {fileID: 11400000, guid: ecc9a934644b5d646882953bb2e59a8f, type: 2}
+  currentHP: 100
+  scoreValue: 100
+  isCannonDamaged: 0
+  healthBar: {fileID: 0}
+  healthBarCanvas: {fileID: 0}
 --- !u!4 &587235675456121354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b086b2651c440764da2905a30cd7ae42, type: 3}
