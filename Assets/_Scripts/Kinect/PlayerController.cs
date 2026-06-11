@@ -3,49 +3,45 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("旋轉軸心設定")]
-    private Transform yawPivot; 
-    
-    [Tooltip("砲管")]
-    public Transform pitchPivot; 
+    [Header("旋轉軸心設定")] private Transform yawPivot;
 
-    [Header("旋轉靈敏度")]
-    public float sensitivity = 200f;
+    [Tooltip("砲管")] public Transform pitchPivot;
 
-    [Header("畫圈移動量")]
-    public float moveAmount = 5f;
+    [Header("旋轉靈敏度")] public float sensitivity = 200f;
+
+    [Header("畫圈移動量")] public float normalMoveAmount = 3f;
+    public float zoomedMoveAmount = 0.2f;
 
     [Header("上下旋轉角度限制 (Pitch)")]
     public float minPitch = -5f;
     public float maxPitch = 38f;
-    
+
     [Header("左右旋轉角度限制 (Yaw)")]
     public float limitYaw = 28f;
     private float currentPitch = 0f;
     private float currentYaw = 0f;
     private bool loaded = false;
-    
+
     [Header("開鏡設定 (Zoom)")]
-    public Camera mainCamera;      
+    public Camera mainCamera;
     public float normalFOV = 60f;
-    public float zoomedFOV = 0.6f;
-    
+    public float zoomedFOV = 6f;
+
     private bool isZoomed = false;
-    
-    [Header("後座力設定")]
-    public float recoilForce = 20f;         // 開火時砲管抬升的角度大小
+
+    [Header("後座力設定")] public float recoilForce = 20f; // 開火時砲管抬升的角度大小
     public float recoilRecoverySpeed = 10f; // 準心回穩的速度 (越大回越快)
-    public float kickSpeed = 0.05f;           // 砲管往上暴衝的速度
-    private float targetRecoil = 0f;        // 目標後座力
-    private float currentRecoil = 0f;       // 當前實際的後座力
-    
+    public float kickSpeed = 0.05f; // 砲管往上暴衝的速度
+    private float targetRecoil = 0f; // 目標後座力
+    private float currentRecoil = 0f; // 當前實際的後座力
+
     void Start()
     {
         yawPivot = this.transform;
-        
+
         currentYaw = yawPivot.localEulerAngles.y;
-        if (currentYaw > 180f) currentYaw -= 360f; 
-        
+        if (currentYaw > 180f) currentYaw -= 360f;
+
         if (pitchPivot is not null)
         {
             currentPitch = pitchPivot.localEulerAngles.x;
@@ -63,23 +59,23 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))    handleInput('w');
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))  handleInput('s');
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))  handleInput('a');
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) handleInput('w');
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) handleInput('s');
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) handleInput('a');
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) handleInput('d');
 
         UpdateAim(0f, 0f);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-           handleInput('f');
+            handleInput('f');
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
             handleInput('l');
         }
-        
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             handleInput('z');
@@ -117,7 +113,7 @@ public class PlayerController : MonoBehaviour
                 GameEvent.OnWaitingLoad?.Invoke(false);
             }
         }
-        
+
         if (input == 'z')
         {
             if (GameManager.Instance.CurrentState == GameState.Playing)
@@ -130,22 +126,25 @@ public class PlayerController : MonoBehaviour
         {
             if (input == 'w')
             {
-                currentPitch += moveAmount;
+                currentPitch += isZoomed ? zoomedMoveAmount : normalMoveAmount;
                 currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
             }
+
             if (input == 's')
             {
-                currentPitch -= moveAmount;
+                currentPitch -= isZoomed ? zoomedMoveAmount : normalMoveAmount;
                 currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
             }
+
             if (input == 'a')
             {
-                currentYaw -= moveAmount;
+                currentYaw -= isZoomed ? zoomedMoveAmount : normalMoveAmount;
                 currentYaw = Mathf.Clamp(currentYaw, -limitYaw, limitYaw);
             }
+
             if (input == 'd')
             {
-                currentYaw += moveAmount;
+                currentYaw += isZoomed ? zoomedMoveAmount : normalMoveAmount;
                 currentYaw = Mathf.Clamp(currentYaw, -limitYaw, limitYaw);
             }
         }
@@ -165,7 +164,7 @@ public class PlayerController : MonoBehaviour
         // --- 👇 修正後的後座力雙重緩衝核心 ---
         // 1. 目標值持續且沉重地降回 0 (模擬液壓復位)
         targetRecoil = Mathf.MoveTowards(targetRecoil, 0f, Time.deltaTime * recoilRecoverySpeed);
-    
+
         // 2. 當前視角極速追上目標值 (模擬火砲暴衝與震動)
         currentRecoil = Mathf.Lerp(currentRecoil, targetRecoil, Time.deltaTime * kickSpeed);
         // ------------------------------------
@@ -173,8 +172,8 @@ public class PlayerController : MonoBehaviour
         if (yawPivot is not null)
         {
             yawPivot.localRotation = Quaternion.Euler(
-                yawPivot.localEulerAngles.x, 
-                currentYaw, 
+                yawPivot.localEulerAngles.x,
+                currentYaw,
                 yawPivot.localEulerAngles.z
             );
         }
@@ -185,8 +184,8 @@ public class PlayerController : MonoBehaviour
             float finalPitch = currentPitch + currentRecoil;
 
             pitchPivot.localRotation = Quaternion.Euler(
-                finalPitch, 
-                pitchPivot.localEulerAngles.y, 
+                finalPitch,
+                pitchPivot.localEulerAngles.y,
                 pitchPivot.localEulerAngles.z
             );
         }
@@ -194,7 +193,7 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleZoom()
     {
-        isZoomed = !isZoomed; 
+        isZoomed = !isZoomed;
 
         if (mainCamera is not null)
         {
