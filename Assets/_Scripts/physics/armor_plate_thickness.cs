@@ -3,13 +3,13 @@ using UnityEngine;
 using UnityEngine;
 public class ArmorPlate : MonoBehaviour
 {
-    [Header("¸Ë¥Ò³]©w")]
-    public string armorName = "¥¼©R¦W¸Ë¥Ò";
+    [Header("è£ç”²è¨­å®š")]
+    public string armorName = "æœªå‘½åè£ç”²";
 
-    [Tooltip("°òÂ¦ª«²z«p«× (³æ¦ì¡G²@¦Ì mm)")]
+    [Tooltip("åŸºç¤ç‰©ç†åšåº¦ (å–®ä½ï¼šæ¯«ç±³ mm)")]
     public float nominalThickness = 100f;
 
-    [Header("¯S®í§÷®Æ (¿ï¶ñ)")]
-    [Tooltip("§÷®Æ«Y¼Æ¡G§¡½è¿û=1.0, ¼i±a/µ²ºc¿û=0.5, ½Æ¦X¸Ë¥Ò=1.5")]
+    [Header("ç‰¹æ®Šææ–™ (é¸å¡«)")]
+    [Tooltip("ææ–™ä¿‚æ•¸ï¼šå‡è³ªé‹¼=1.0, å±¥å¸¶/çµæ§‹é‹¼=0.5, è¤‡åˆè£ç”²=1.5")]
     public float materialMultiplier = 1.0f;
 }

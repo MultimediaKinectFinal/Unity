@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TrackComponent : MonoBehaviour
 {
-    [Header("¼i±a³]©w")]
-    public string trackName = "¥ª°¼¼i±a";
-    // ³o¸Ì¥i¥H©ñ¥¼¨Ó¥i¯à¥Î¨ìªºÄİ©Ê¡A¥Ø«e¯Â·í§@¨­¥÷¿ëÃÑ¼ĞÅÒ
+    [Header("å±¥å¸¶è¨­å®š")]
+    public string trackName = "å·¦å´å±¥å¸¶";
+    // é€™è£¡å¯ä»¥æ”¾æœªä¾†å¯èƒ½ç”¨åˆ°çš„å±¬æ€§ï¼Œç›®å‰ç´”ç•¶ä½œèº«ä»½è¾¨è­˜æ¨™ç±¤
 }

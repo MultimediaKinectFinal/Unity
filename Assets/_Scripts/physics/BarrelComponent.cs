@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BarrelComponent : MonoBehaviour
 {
-    [Header("¯¥ºŞ³]©w")]
-    public string barrelName = "¥D¯¥ºŞ";
-    // ³o¸Ì¥i¥H©ñ¥¼¨Ó¥i¯à¥Î¨ìªºÄİ©Ê¡A¥Ø«e¯Â·í§@¨­¥÷¿ëÃÑ¼ĞÅÒ
+    [Header("ç ²ç®¡è¨­å®š")]
+    public string barrelName = "ä¸»ç ²ç®¡";
+    // é€™è£¡å¯ä»¥æ”¾æœªä¾†å¯èƒ½ç”¨åˆ°çš„å±¬æ€§ï¼Œç›®å‰ç´”ç•¶ä½œèº«ä»½è¾¨è­˜æ¨™ç±¤
 }

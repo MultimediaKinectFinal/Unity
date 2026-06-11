@@ -7,18 +7,18 @@ public class KinectIntegratedGesture : MonoBehaviour
     private BodyFrameReader bodyFrameReader;
     private Body[] bodies = null;
 
-    [Header("¼Ò¦¡ª¬ºA (°ßÅª)")]
+    [Header("æ¨¡å¼ç‹€æ…‹ (å”¯è®€)")]
     public Mode currentMode = Mode.Normal;
     public enum Mode { Normal, Zoom }
 
-    [Header("1. ÃÛ¤U´«¼u³]©w (Squat to Reload)")]
-    [Tooltip("°©¬Ö»P½¥»\ªº««ª½¶ZÂ÷§C©ó¦¹¼Æ­È¡AÄ²µo´«¼u")]
+    [Header("1. è¹²ä¸‹æ›å½ˆè¨­å®š (Squat to Reload)")]
+    [Tooltip("éª¨ç›†èˆ‡è†è“‹çš„å‚ç›´è·é›¢ä½æ–¼æ­¤æ•¸å€¼ï¼Œè§¸ç™¼æ›å½ˆ")]
     public float squatThresholdHeight = 0.25f;
-    [Tooltip("ÃÛ¤U«á¡A¶ZÂ÷¥²¶·¦^¤É¤j©ó¦¹¼Æ­È¤~ºâ¡u§¹¥ş¯¸°_¡v¡A¤¹³\¤U¤@¦¸´«¼u")]
+    [Tooltip("è¹²ä¸‹å¾Œï¼Œè·é›¢å¿…é ˆå›å‡å¤§æ–¼æ­¤æ•¸å€¼æ‰ç®—ã€Œå®Œå…¨ç«™èµ·ã€ï¼Œå…è¨±ä¸‹ä¸€æ¬¡æ›å½ˆ")]
     public float standThresholdHeight = 0.4f;
     private bool isSquatting = false;
 
-    [Header("2. ©ñ¤jÁY¤p¼Ò¦¡ (Zoom Mode)")]
+    [Header("2. æ”¾å¤§ç¸®å°æ¨¡å¼ (Zoom Mode)")]
     public float chestAreaRadius = 0.35f;
     public float zoomExitYDrop = 0.3f;
     public float zoomInSensitivity = 0.02f;
@@ -29,13 +29,13 @@ public class KinectIntegratedGesture : MonoBehaviour
     private float cooldownEndTime = 0f;
     private float zoomBaselineDistance;
 
-    [Header("3. µo®g¤â¶Õ³]©w (Pull Back to Shoot)")]
+    [Header("3. ç™¼å°„æ‰‹å‹¢è¨­å®š (Pull Back to Shoot)")]
     public float pullBackZVelocityThreshold = 0.025f;
     public float shootCooldown = 0.5f;
     private float shootCooldownEndTime = 0f;
     private float prevRightPosZ;
 
-    [Header("4. µe°é¹LÂo³]©w (Anti-Jitter & Rest)")]
+    [Header("4. ç•«åœˆéæ¿¾è¨­å®š (Anti-Jitter & Rest)")]
     public float angleTriggerThreshold = 180f;
     [Range(0.05f, 1f)] public float smoothingFactor = 0.3f;
     public float leftVelocityThreshold = 0.005f;
@@ -118,29 +118,29 @@ public class KinectIntegratedGesture : MonoBehaviour
         smoothedLeftPos = Vector3.Lerp(smoothedLeftPos, rawLeftPos, smoothingFactor);
         smoothedRightPos = Vector3.Lerp(smoothedRightPos, rawRightPos, smoothingFactor);
 
-        // ========== ®Ö¤ß¤@¡G°»´úÃÛ¤U»P¯¸°_ (Âù­«ìH­È¨¾§İ) ==========
+        // ========== æ ¸å¿ƒä¸€ï¼šåµæ¸¬è¹²ä¸‹èˆ‡ç«™èµ· (é›™é‡é–¾å€¼é˜²æŠ–) ==========
         float avgKneeY = (kneeLeftPos.y + kneeRightPos.y) / 2.0f;
         float pelvisToKneeDist = spineBasePos.y - avgKneeY;
 
-        // 1. ÀË¬d¬O§_±qÃÛ¤Uª¬ºA¡u§¹¥ş¯¸°_¡v
+        // 1. æª¢æŸ¥æ˜¯å¦å¾è¹²ä¸‹ç‹€æ…‹ã€Œå®Œå…¨ç«™èµ·ã€
         if (isSquatting && pelvisToKneeDist > standThresholdHeight)
         {
             isSquatting = false;
-            Debug.Log("--- ¤w§¹¥ş¯¸ª½¡A¸Ñ°£´«¼uÂê©w ---");
+            Debug.Log("--- å·²å®Œå…¨ç«™ç›´ï¼Œè§£é™¤æ›å½ˆé–å®š ---");
         }
 
-        // 2. ÀË¬d¬O§_¡uÄ²µoÃÛ¤U¡v
+        // 2. æª¢æŸ¥æ˜¯å¦ã€Œè§¸ç™¼è¹²ä¸‹ã€
         if (!isSquatting && pelvisToKneeDist < squatThresholdHeight)
         {
-            Debug.Log("´«¼u");
-            isSquatting = true; // ¤WÂê¡Aª½¨ì¤U¦¸¯¸ª½«e¤£·|¦AÄ²µo
+            Debug.Log("æ›å½ˆ");
+            isSquatting = true; // ä¸Šé–ï¼Œç›´åˆ°ä¸‹æ¬¡ç«™ç›´å‰ä¸æœƒå†è§¸ç™¼
 
-            // ±j¨î°h¥XÁY©ñ¼Ò¦¡¨Ã²MªÅ©Ò¦³¤â¶Õ²Ö¿n
+            // å¼·åˆ¶é€€å‡ºç¸®æ”¾æ¨¡å¼ä¸¦æ¸…ç©ºæ‰€æœ‰æ‰‹å‹¢ç´¯ç©
             currentMode = Mode.Normal;
             ResetAccumulators();
         }
 
-        // 3. ¦pªG¥¿³B©óÃÛ¤Uª¬ºA (¥]§t¥¿¦b½wºC¯¸°_¨Óªº¥bÃÛ¹Lµ{)¡Aª½±µÂê©w¤£­pºâ¤â¶Õ¡I
+        // 3. å¦‚æœæ­£è™•æ–¼è¹²ä¸‹ç‹€æ…‹ (åŒ…å«æ­£åœ¨ç·©æ…¢ç«™èµ·ä¾†çš„åŠè¹²éç¨‹)ï¼Œç›´æ¥é–å®šä¸è¨ˆç®—æ‰‹å‹¢ï¼
         if (isSquatting)
         {
             prevLeftPosXY = new Vector2(smoothedLeftPos.x, smoothedLeftPos.y);
@@ -150,7 +150,7 @@ public class KinectIntegratedGesture : MonoBehaviour
         }
 
 
-        // ========== ®Ö¤ß¤G¡G¨ä¾l¤â¶Õ¹Bºâ (§¹¥ş¯¸¥ß®É¤~·|°õ¦æ¨ì³o) ==========
+        // ========== æ ¸å¿ƒäºŒï¼šå…¶é¤˜æ‰‹å‹¢é‹ç®— (å®Œå…¨ç«™ç«‹æ™‚æ‰æœƒåŸ·è¡Œåˆ°é€™) ==========
 
         CheckModeSwitch(smoothedLeftPos, smoothedRightPos, chestPos);
 
@@ -197,7 +197,7 @@ public class KinectIntegratedGesture : MonoBehaviour
                 currentMode = Mode.Zoom;
                 zoomWaitEndTime = Time.time + zoomWaitTime;
                 zoomBaselineDistance = handsDist;
-                Debug.Log($"--- ¶i¤JÁY©ñ¼Ò¦¡ (µ¥«İ {zoomWaitTime} ¬íÃ­©w) ---");
+                Debug.Log($"--- é€²å…¥ç¸®æ”¾æ¨¡å¼ (ç­‰å¾… {zoomWaitTime} ç§’ç©©å®š) ---");
             }
         }
         else if (currentMode == Mode.Zoom)
@@ -210,7 +210,7 @@ public class KinectIntegratedGesture : MonoBehaviour
                 currentMode = Mode.Normal;
                 cooldownEndTime = Time.time + 0.5f;
                 ResetAccumulators();
-                Debug.Log("--- ¨ú®øÁY©ñ¼Ò¦¡ ---");
+                Debug.Log("--- å–æ¶ˆç¸®æ”¾æ¨¡å¼ ---");
             }
         }
     }
@@ -229,12 +229,12 @@ public class KinectIntegratedGesture : MonoBehaviour
 
         if (deltaDist > zoomInSensitivity)
         {
-            Debug.Log("©ñ¤j (¦V¥~ÂX)");
+            Debug.Log("æ”¾å¤§ (å‘å¤–æ“´)");
             ExitZoomMode();
         }
         else if (deltaDist < -zoomOutSensitivity)
         {
-            Debug.Log("ÁY¤p (¦V¤ºÁY)");
+            Debug.Log("ç¸®å° (å‘å…§ç¸®)");
             ExitZoomMode();
         }
     }
@@ -244,7 +244,7 @@ public class KinectIntegratedGesture : MonoBehaviour
         currentMode = Mode.Normal;
         cooldownEndTime = Time.time + zoomCooldown;
         ResetAccumulators();
-        Debug.Log($"--- °h¥XÁY©ñ¼Ò¦¡ (§N«o {zoomCooldown} ¬í) ---");
+        Debug.Log($"--- é€€å‡ºç¸®æ”¾æ¨¡å¼ (å†·å» {zoomCooldown} ç§’) ---");
     }
 
     private bool DetectRightHandPullBack(Vector3 rightPos, Vector3 chestPos, Vector3 spineBasePos)
@@ -255,7 +255,7 @@ public class KinectIntegratedGesture : MonoBehaviour
 
             if (deltaZ > pullBackZVelocityThreshold && Time.time > shootCooldownEndTime)
             {
-                Debug.Log("µo®g");
+                Debug.Log("ç™¼å°„");
                 shootCooldownEndTime = Time.time + shootCooldown;
                 return true;
             }
@@ -275,12 +275,12 @@ public class KinectIntegratedGesture : MonoBehaviour
 
             if (leftAngleAccumulator <= -angleTriggerThreshold)
             {
-                Debug.Log("¥ªÂà (¶¶®ÉÄÁÂ¶°é)");
+                Debug.Log("å·¦è½‰ (é †æ™‚é˜ç¹åœˆ)");
                 leftAngleAccumulator = 0f;
             }
             else if (leftAngleAccumulator >= angleTriggerThreshold)
             {
-                Debug.Log("¥kÂà (°f®ÉÄÁÂ¶°é)");
+                Debug.Log("å³è½‰ (é€†æ™‚é˜ç¹åœˆ)");
                 leftAngleAccumulator = 0f;
             }
         }
@@ -300,12 +300,12 @@ public class KinectIntegratedGesture : MonoBehaviour
 
             if (rightAngleAccumulator <= -angleTriggerThreshold)
             {
-                Debug.Log("©ï°ª (¦V«eÂ¶°é)");
+                Debug.Log("æŠ¬é«˜ (å‘å‰ç¹åœˆ)");
                 rightAngleAccumulator = 0f;
             }
             else if (rightAngleAccumulator >= angleTriggerThreshold)
             {
-                Debug.Log("À£§C (¦V«áÂ¶°é)");
+                Debug.Log("å£“ä½ (å‘å¾Œç¹åœˆ)");
                 rightAngleAccumulator = 0f;
             }
         }

@@ -23,16 +23,16 @@ public class ShellVisualTracer : MonoBehaviour
     {
         if (totalDistance <= 0) return;
 
-        // ­pºâ·í«e¶i«×
+        // è¨ˆç®—ç•¶å‰é€²åº¦
         progress += (speed * Time.deltaTime) / totalDistance;
 
-        // ¨Ï¥Î½u©Ê´¡­È¡]Lerp¡^Åı¯S®ÄªuµÛ­y¸ñ«e¶i
+        // ä½¿ç”¨ç·šæ€§æ’å€¼ï¼ˆLerpï¼‰è®“ç‰¹æ•ˆæ²¿è‘—è»Œè·¡å‰é€²
         transform.position = Vector3.Lerp(startPoint, endPoint, progress);
 
-        // ·í©è¹Fª«²z¤¤¼uÂI®É¡AºR·´µøÄ±¯S®Ä
+        // ç•¶æŠµé”ç‰©ç†ä¸­å½ˆé»æ™‚ï¼Œæ‘§æ¯€è¦–è¦ºç‰¹æ•ˆ
         if (progress >= 1.0f)
         {
-            // ¥i¥H¦b³o¸ÌÃB¥~¥Í¦¨¤¤¼uªº·ÏÃú©ÎÃz¬µ²É¤l
+            // å¯ä»¥åœ¨é€™è£¡é¡å¤–ç”Ÿæˆä¸­å½ˆçš„ç…™éœ§æˆ–çˆ†ç‚¸ç²’å­
             Destroy(gameObject);
         }
     }
