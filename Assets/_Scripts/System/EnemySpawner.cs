@@ -71,7 +71,7 @@ public class EnemySpawner : MonoBehaviour
         int randomIndex = Random.Range(0, spawnPoints.Length);
         Transform selectedPoint = spawnPoints[randomIndex];
 
-        Instantiate(enemyTankPrefab, selectedPoint.position, selectedPoint.rotation);
+        Instantiate(enemyTankPrefab, selectedPoint.position, enemyTankPrefab.transform.rotation);
 
         currentEnemyCount++;
 
