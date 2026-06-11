@@ -4658,7 +4658,7 @@ GameObject:
   - component: {fileID: 7206440331348993477}
   - component: {fileID: 872402002888197629}
   m_Layer: 0
-  m_Name: t26e4 1
+  m_Name: t26e4_ro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
