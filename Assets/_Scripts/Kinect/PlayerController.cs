@@ -25,14 +25,14 @@ public class PlayerController : MonoBehaviour
     [Header("開鏡設定 (Zoom)")]
     public Camera mainCamera;      
     public float normalFOV = 60f;
-    public float zoomedFOV = 20f;
+    public float zoomedFOV = 0.6f;
     
     private bool isZoomed = false;
     
     [Header("後座力設定")]
     public float recoilForce = 20f;         // 開火時砲管抬升的角度大小
     public float recoilRecoverySpeed = 10f; // 準心回穩的速度 (越大回越快)
-    public float kickSpeed = 50f;           // 砲管往上暴衝的速度
+    public float kickSpeed = 0.05f;           // 砲管往上暴衝的速度
     private float targetRecoil = 0f;        // 目標後座力
     private float currentRecoil = 0f;       // 當前實際的後座力
     

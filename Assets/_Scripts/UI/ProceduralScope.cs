@@ -7,7 +7,7 @@ public class ProceduralScope : MonoBehaviour
     [Header("瞄準鏡設定")]
     public int resolution = 1024;        // 圖片解析度
     public float scopeRadius = 0.4f;     // 圓圈半徑 (0~1)
-    public float lineThickness = 0.002f; // 十字線粗細
+    public float lineThickness = 0.0005f; // 十字線粗細
 
     void Start()
     {
