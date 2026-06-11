@@ -49,10 +49,10 @@ public class TankHealth : MonoBehaviour
         GameEvent.OnArmorPenetrated -= HandleArmorPenetrated;
     }
 
-    private void HandleArmorPenetrated(Vector3 hitPos, string part, int damage)
+    private void HandleArmorPenetrated(GameObject hitTarget, string part, int damage)
     {
         // 關鍵：比對座標。因為場上有很多坦克，每個坦克都要檢查這發子彈是不是打到自己
-        if (Vector3.Distance(transform.position, hitPos) < 1.0f) 
+        if (hitTarget == gameObject)
         {
             Debug.Log($"坦克收到擊穿事件！部位: {part}, 當前血量: {currentHP}");
             currentHP -= damage;
@@ -66,7 +66,10 @@ public class TankHealth : MonoBehaviour
             
             if (part == "Track") 
             { 
-                GetComponent<UnityEngine.AI.NavMeshAgent>().speed = 0; // 斷履帶 
+                // 建議：直接取得組件，若速度設為0，坦克就會停下
+                var agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+                if (agent != null) agent.speed = 0;
+                Debug.Log("履帶受損！坦克速度歸零！"); 
             }
             
             if (currentHP <= 0 && !isDead)

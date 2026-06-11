@@ -14,8 +14,7 @@ public class TestScript : MonoBehaviour
             GameObject targetTank = GameObject.Find("Tank"); 
             if (targetTank != null)
             {
-                Vector3 hitPos = targetTank.transform.position;
-                GameEvent.OnArmorPenetrated?.Invoke(hitPos, "Track", 20);
+                GameEvent.OnArmorPenetrated?.Invoke(targetTank, "Track", 20);
                 Debug.Log("測試：已觸發擊穿事件 (部位: Track, 傷害: 20)");
             }
         }
@@ -41,7 +40,7 @@ public class TestScript : MonoBehaviour
         {
             Vector3 hitPos = targetTank.transform.position;
             // 觸發擊穿事件，TankHealth 會監聽到這個事件
-            GameEvent.OnArmorPenetrated?.Invoke(hitPos, part, damage);
+            GameEvent.OnArmorPenetrated?.Invoke(targetTank, part, damage);
         }
         else
         {
