@@ -77,17 +77,17 @@ public class ShellManager : MonoBehaviour
 
                 if (finalPenetration >= finalEffectiveThickness)
                 {
-                    //Debug.Log($"<color=red>【擊穿 Penetration！】成功貫穿 {armor.armorName}！\n" +
-                    //          $"[數據] 實際穿深: {finalPenetration:F1}mm >= 等效厚度: {finalEffectiveThickness:F1}mm (基礎: {armor.nominalThickness}mm/角度: {hitAngle:F1}°)\n" +
-                    //          $"[結果] 造成 {finalDamage:F0} 點核心血量傷害！ | 命中點: {cameraHit.point} | 目標: {rootObject.name}</color>");
+                    Debug.Log($"<color=red>【擊穿 Penetration！】成功貫穿 {armor.armorName}！\n" +
+                              $"[數據] 實際穿深: {finalPenetration:F1}mm >= 等效厚度: {finalEffectiveThickness:F1}mm (基礎: {armor.nominalThickness}mm/角度: {hitAngle:F1}°)\n" +
+                              $"[結果] 造成 {finalDamage:F0} 點核心血量傷害！ | 命中點: {cameraHit.point} | 目標: {rootObject.name}</color>");
 
                     GameEvent.OnArmorPenetrated?.Invoke(rootObject, "Armor", Mathf.RoundToInt(finalDamage));
                 }
                 else
                 {
-                    //Debug.Log($"<color=white>【未擊穿 Blocked】砲彈未能穿透 {armor.armorName}！\n" +
-                    //          $"[數據] 實際穿深: {finalPenetration:F1}mm < 等效厚度: {finalEffectiveThickness:F1}mm (基礎: {armor.nominalThickness}mm/角度: {hitAngle:F1}°)\n" +
-                    //          $"[結果] 砲彈被裝甲無傷擋下！</color> | 目標: {rootObject.name}");
+                    Debug.Log($"<color=white>【未擊穿 Blocked】砲彈未能穿透 {armor.armorName}！\n" +
+                              $"[數據] 實際穿深: {finalPenetration:F1}mm < 等效厚度: {finalEffectiveThickness:F1}mm (基礎: {armor.nominalThickness}mm/角度: {hitAngle:F1}°)\n" +
+                              $"[結果] 砲彈被裝甲無傷擋下！</color> | 目標: {rootObject.name}");
                     GameEvent.OnShellBlock?.Invoke(cameraHit.point);
                 }
 
@@ -98,7 +98,7 @@ public class ShellManager : MonoBehaviour
             TrackComponent track = hitCollider.GetComponent<TrackComponent>();
             if (track != null)
             {
-                //Debug.Log($"<color=orange>【部位破壞 - 履帶失能！】精準命中 {track.trackName}！</color>");
+                Debug.Log($"<color=orange>【部位破壞 - 履帶失能！】精準命中 {track.trackName}！</color>");
                 GameEvent.OnArmorPenetrated?.Invoke(rootObject, "Track", Mathf.RoundToInt(finalDamage));
                 SpawnVisualTracerWithRicochet(realMuzzleTransform.position, finalImpactPoint, Vector3.zero, false);
                 return;
@@ -107,7 +107,7 @@ public class ShellManager : MonoBehaviour
             BarrelComponent barrel = hitCollider.GetComponent<BarrelComponent>();
             if (barrel != null)
             {
-                //Debug.Log($"<color=orange>【部位破壞 - 砲管損毀！】精準命中 {barrel.barrelName}！</color>");
+                Debug.Log($"<color=orange>【部位破壞 - 砲管損毀！】精準命中 {barrel.barrelName}！</color>");
                 GameEvent.OnArmorPenetrated?.Invoke(rootObject, "Cannon", Mathf.RoundToInt(finalDamage));
                 SpawnVisualTracerWithRicochet(realMuzzleTransform.position, finalImpactPoint, Vector3.zero, false);
                 return;

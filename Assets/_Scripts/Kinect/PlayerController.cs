@@ -92,9 +92,9 @@ public class PlayerController : MonoBehaviour
             {
                 Transform cameraTransform = Camera.main.transform;
 
-                Debug.Log($"【事件觸發】呼叫軌跡如下：\n{Environment.StackTrace}");
+                //Debug.Log($"【事件觸發】呼叫軌跡如下：\n{Environment.StackTrace}");
 
-                Debug.Log($"【事件觸發】呼叫軌跡如下：\n{Environment.StackTrace}");
+                //Debug.Log($"【事件觸發】呼叫軌跡如下：\n{Environment.StackTrace}");
 
                 loaded = false;
 

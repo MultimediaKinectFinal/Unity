@@ -1,3 +1,121 @@
+//using UnityEngine;
+//using System;
+//using UnityEngine.SceneManagement;
+//using Random = UnityEngine.Random;
+
+//public enum GameState
+//{
+//    Start,
+//    Playing,
+//    GameOver
+//}
+
+//public class GameManager : MonoBehaviour
+//{
+//    public static GameManager Instance { get; private set; }
+
+//    public GameState CurrentState { get; private set; }
+//    public int TotalScore { get; private set; }
+//    public int HighScore { get; private set; }
+//    private float playingStartTime; 
+
+
+//    private void Awake()
+//    {
+//        if (Instance == null) Instance = this;
+//        else Destroy(gameObject);
+
+//        HighScore = PlayerPrefs.GetInt("HighScore", 0);
+//    }
+
+//    private void OnEnable()
+//    {
+//        GameEvent.OnEnemyDestroyed += AddScore;
+//        GameEvent.OnGameOver += TriggerGameOver;
+//    }
+
+
+//    private void Start()
+//    {
+//        ChangeState(GameState.Start);
+//    }
+
+//    private void OnDestroy()
+//    {
+//        GameEvent.OnEnemyDestroyed -= AddScore;
+//        GameEvent.OnGameOver -= TriggerGameOver;
+//    }
+
+
+//    // 遊玩時間
+//    public float GetPlayingTime()
+//    {
+//        if (CurrentState == GameState.Start) return 0f;
+
+//        return Time.timeSinceLevelLoad - playingStartTime; 
+//    }
+
+//    public void StartPlaying()
+//    {
+//        ChangeState(GameState.Playing);
+//    }
+
+//    // 狀態管理
+//    public void ChangeState(GameState newState)
+//    {
+//        CurrentState = newState;
+
+//        if (newState == GameState.Start)
+//        {
+//            Time.timeScale = 0f;
+//        }
+//        else if (newState == GameState.Playing)
+//        {
+//            TotalScore = 0; 
+//            playingStartTime = Time.timeSinceLevelLoad;
+//            Time.timeScale = 1f;
+
+//            GameEvent.OnGameStart?.Invoke(); 
+//        }
+//        else if (newState == GameState.GameOver)
+//        {
+//            Time.timeScale = 0f; // 凍結時間
+
+//            // 檢查並儲存最高分
+//            if (TotalScore > HighScore)
+//            {
+//                HighScore = TotalScore;
+//                PlayerPrefs.SetInt("HighScore", HighScore);
+//                PlayerPrefs.Save();
+//            }
+//        }
+//    }
+
+//    // 分數計算
+//    public void AddScore(GameObject tank,Vector3 _, int score)
+//    {
+//        if (CurrentState != GameState.Playing) return;
+
+//        TotalScore += score;
+//        // 呼叫事件讓 UIManager 更新介面
+//        GameEvent.OnUpdateScore?.Invoke(TotalScore); 
+//    }
+
+//    // 一發死亡判定與遊戲結束
+//    public void TriggerGameOver()
+//    {
+//        if (CurrentState == GameState.GameOver) return;
+
+//        ChangeState(GameState.GameOver);
+//    }
+
+//    public void RestartGame()
+//    {
+//        Time.timeScale = 1f; // 恢復時間
+//        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 重新載入當前場景
+//    }
+//}
+
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
@@ -17,23 +135,23 @@ public class GameManager : MonoBehaviour
     public GameState CurrentState { get; private set; }
     public int TotalScore { get; private set; }
     public int HighScore { get; private set; }
-    private float playingStartTime; 
+    private float playingStartTime;
 
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
-        
+
         HighScore = PlayerPrefs.GetInt("HighScore", 0);
     }
 
     private void OnEnable()
     {
+        // 同時註冊事件，不論 OnEnemyDestroyed 是哪種參數形式都能相容
         GameEvent.OnEnemyDestroyed += AddScore;
         GameEvent.OnGameOver += TriggerGameOver;
     }
-
 
     private void Start()
     {
@@ -51,10 +169,10 @@ public class GameManager : MonoBehaviour
     public float GetPlayingTime()
     {
         if (CurrentState == GameState.Start) return 0f;
-        
-        return Time.timeSinceLevelLoad - playingStartTime; 
+
+        return Time.timeSinceLevelLoad - playingStartTime;
     }
-    
+
     public void StartPlaying()
     {
         ChangeState(GameState.Playing);
@@ -64,23 +182,23 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState newState)
     {
         CurrentState = newState;
-        
+
         if (newState == GameState.Start)
         {
             Time.timeScale = 0f;
         }
         else if (newState == GameState.Playing)
         {
-            TotalScore = 0; 
+            TotalScore = 0;
             playingStartTime = Time.timeSinceLevelLoad;
             Time.timeScale = 1f;
-            
-            GameEvent.OnGameStart?.Invoke(); 
+
+            GameEvent.OnGameStart?.Invoke();
         }
         else if (newState == GameState.GameOver)
         {
             Time.timeScale = 0f; // 凍結時間
-            
+
             // 檢查並儲存最高分
             if (TotalScore > HighScore)
             {
@@ -91,15 +209,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // 分數計算
-    public void AddScore(GameObject tank,Vector3 _, int score)
+    // ========================================================
+    // 🛠️ 核心融合點：分數計算 (利用多載 Overloading 相容兩種版本)
+    // ========================================================
+
+    /// <summary>
+    /// 分數計算 - 版本一 (帶有 GameObject tank 參數)
+    /// </summary>
+    public void AddScore(GameObject tank, Vector3 _, int score)
     {
         if (CurrentState != GameState.Playing) return;
-        
+
         TotalScore += score;
         // 呼叫事件讓 UIManager 更新介面
-        GameEvent.OnUpdateScore?.Invoke(TotalScore); 
+        GameEvent.OnUpdateScore?.Invoke(TotalScore);
     }
+
+    /// <summary>
+    /// 分數計算 - 版本二 (不帶 GameObject tank 參數)
+    /// </summary>
+    public void AddScore(Vector3 _, int score)
+    {
+        if (CurrentState != GameState.Playing) return;
+
+        TotalScore += score;
+        // 呼叫事件讓 UIManager 更新介面
+        GameEvent.OnUpdateScore?.Invoke(TotalScore);
+    }
+
+    // ========================================================
 
     // 一發死亡判定與遊戲結束
     public void TriggerGameOver()
@@ -108,7 +246,7 @@ public class GameManager : MonoBehaviour
 
         ChangeState(GameState.GameOver);
     }
-    
+
     public void RestartGame()
     {
         Time.timeScale = 1f; // 恢復時間
