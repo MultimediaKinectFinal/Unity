@@ -700,8 +700,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7febd2517ad765847b556dd2ee039ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShellManager
+  realMuzzleTransform: {fileID: 0}
+  shellTracerPrefab: {fileID: 0}
   shellPenetration: 140
   shellDamage: 350
+  tracerSpeed: 250
 --- !u!1 &884891373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2541,7 +2544,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2680,7 +2683,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2788,7 +2791,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2943,6 +2946,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   pitchPivot: {fileID: 780456924003008086}
   sensitivity: 50
+  normalMoveAmount: 3
+  zoomedMoveAmount: 0.2
   minPitch: -5
   maxPitch: 38
   limitYaw: 28
