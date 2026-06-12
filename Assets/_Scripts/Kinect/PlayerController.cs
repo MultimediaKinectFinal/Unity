@@ -97,8 +97,6 @@ public class PlayerController : MonoBehaviour
 
                 Debug.Log($"【事件觸發】呼叫軌跡如下：\n{Environment.StackTrace}");
 
-                GameEvent.OnPlayerFire?.Invoke(cameraTransform.position, cameraTransform.forward);
-
                 Debug.Log($"【事件觸發】呼叫軌跡如下：\n{Environment.StackTrace}");
 
                 loaded = false;
@@ -106,6 +104,8 @@ public class PlayerController : MonoBehaviour
                 targetRecoil += recoilForce;
 
                 GameEvent.OnWaitingLoad?.Invoke(true);
+                GameEvent.OnPlayerFire?.Invoke(cameraTransform.position, cameraTransform.forward);
+
             }
         }
 
