@@ -1,6 +1,6 @@
 using UnityEngine;
 
-using UnityEngine.InputSystem; // ¥²¶··s¼W³o¦æ¨Ó©I¥s·s¨t²Î
+using UnityEngine.InputSystem; // å¿…é ˆæ–°å¢é€™è¡Œä¾†å‘¼å«æ–°ç³»çµ±
 
 
 
@@ -8,7 +8,7 @@ public class TestTrigger : MonoBehaviour
 
 {
 
-    [Header("½Ğ§â³õ´º¤Wªº¾Ô¨®©ì¦²¨ì³o¸Ì")]
+    [Header("è«‹æŠŠå ´æ™¯ä¸Šçš„æˆ°è»Šæ‹–æ›³åˆ°é€™è£¡")]
 
     public GameObject targetTank;
 
@@ -18,16 +18,16 @@ public class TestTrigger : MonoBehaviour
 
     {
 
-        // §ï¥Î·sª© Input System ªºÁä½L°»´ú¼gªk
+        // æ”¹ç”¨æ–°ç‰ˆ Input System çš„éµç›¤åµæ¸¬å¯«æ³•
 
         if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             if (targetTank != null)
 
             {
-                Debug.Log("¼ÒÀÀÄ²µo¡Gµo°e¾Ô¨®À»·´¼s¼½¡I");
+                Debug.Log("æ¨¡æ“¬è§¸ç™¼ï¼šç™¼é€æˆ°è»Šæ“Šæ¯€å»£æ’­ï¼");
 
-                // ¼ÒÀÀ 3 ¸¹¶¤¤Í©I¥s 1 ¸¹«Ø¸mªº¥ş°ì¨Æ¥ó
+                // æ¨¡æ“¬ 3 è™ŸéšŠå‹å‘¼å« 1 è™Ÿå»ºç½®çš„å…¨åŸŸäº‹ä»¶
 
                 GameEvent.OnEnemyDestroyed?.Invoke(targetTank, targetTank.transform.position, 100);
 
@@ -35,7 +35,7 @@ public class TestTrigger : MonoBehaviour
             else
             {
 
-                Debug.LogWarning("½Ğ¥ı¦b Inspector ©ñ¤J Target Tank¡I");
+                Debug.LogWarning("è«‹å…ˆåœ¨ Inspector æ”¾å…¥ Target Tankï¼");
 
             }
         }

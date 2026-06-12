@@ -1,28 +1,28 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // ¨Ï¥Î·sª©¿é¤J¨t²Î
+using UnityEngine.InputSystem; // ä½¿ç”¨æ–°ç‰ˆè¼¸å…¥ç³»çµ±
 
 public class TankDriveTest : MonoBehaviour
 {
-    [Header("¨®½ø³]©w")]
-    public float moveSpeed = 5f;   // «e«á²¾°Ê³t«×
-    public float turnSpeed = 90f;  // ¥ª¥kÂà¦V³t«×
+    [Header("è»Šè¼›è¨­å®š")]
+    public float moveSpeed = 5f;   // å‰å¾Œç§»å‹•é€Ÿåº¦
+    public float turnSpeed = 90f;  // å·¦å³è½‰å‘é€Ÿåº¦
 
     void Update()
     {
-        // ½T«OÁä½L¦s¦b
+        // ç¢ºä¿éµç›¤å­˜åœ¨
         if (Keyboard.current == null) return;
 
-        // °»´ú W ©M S ±±¨î«e«á
+        // åµæ¸¬ W å’Œ S æ§åˆ¶å‰å¾Œ
         float moveInput = 0f;
         if (Keyboard.current.wKey.isPressed) moveInput = 1f;
         if (Keyboard.current.sKey.isPressed) moveInput = -1f;
 
-        // °»´ú A ©M D ±±¨î¥ª¥kÂà¦V
+        // åµæ¸¬ A å’Œ D æ§åˆ¶å·¦å³è½‰å‘
         float turnInput = 0f;
         if (Keyboard.current.dKey.isPressed) turnInput = 1f;
         if (Keyboard.current.aKey.isPressed) turnInput = -1f;
 
-        // °õ¦æ²¾°Ê»P±ÛÂà
+        // åŸ·è¡Œç§»å‹•èˆ‡æ—‹è½‰
         transform.Translate(Vector3.forward * moveInput * moveSpeed * Time.deltaTime);
         transform.Rotate(Vector3.up * turnInput * turnSpeed * Time.deltaTime);
     }
