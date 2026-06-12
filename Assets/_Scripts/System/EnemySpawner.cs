@@ -78,7 +78,7 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log($"敵軍數：{currentEnemyCount}/{maxEnemiesOnScreen} | 當前生成間隔: {GetCurrentSpawnInterval():F2}s");
     }
 
-    private void HandleEnemyDestroyed(GameObject tank,Vector3 deathPos, int score)
+    private void HandleEnemyDestroyed(Vector3 deathPos, int score)
     {
         currentEnemyCount = Mathf.Max(0, currentEnemyCount - 1);
     }

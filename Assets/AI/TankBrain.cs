@@ -29,13 +29,6 @@ public class TankBrain : MonoBehaviour
         } else {
             Debug.LogError("【關鍵修正】TankData 仍然是空的！請再次確認 Inspector 是否顯示 ShermanData");
         }
-
-        TestManager manager = FindAnyObjectByType<TestManager>();
-        if (manager != null) {
-            this.player = manager.playerTransform;
-        } else {
-            Debug.LogError("【關鍵修正】TestManager 沒有找到！請確保場上有一個 TestManager 物件，並且它已經啟動了！");
-        }
     }
     private void FireLogic() 
     {
@@ -66,12 +59,18 @@ public class TankBrain : MonoBehaviour
 
         // 刪除那兩行無用的強制重置代碼
 
+        if (agent.pathStatus == NavMeshPathStatus.PathPartial) {
+            Debug.LogWarning("路徑不完整 (Partial Path)");
+        } else if (agent.pathStatus == NavMeshPathStatus.PathInvalid) {
+            Debug.LogWarning("路徑無效 (Invalid Path) - Agent 找不到目標！");
+        }
+
         float distance = Vector3.Distance(transform.position, player.position);
         
 
-        Debug.Log("剩餘距離: " + agent.remainingDistance);
+        //Debug.Log("剩餘距離: " + agent.remainingDistance);
 
-        Debug.Log("Agent Speed: " + agent.speed + " | CurrentState: " + currentState);
+        //Debug.Log("Agent Speed: " + agent.speed + " | CurrentState: " + currentState);
 
         switch (currentState)
         {
@@ -79,9 +78,10 @@ public class TankBrain : MonoBehaviour
                 // 讓 Agent 鎖定玩家為目標
                 tankMovement.SetMoveTarget(player.position, true);
 
-                // 關鍵判斷：利用 agent.remainingDistance 判斷是否已到達停止距離
-                // 當 pathPending 為 false 代表路徑計算完成，remainingDistance 為當前離目標距離
-                if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+                float distToPlayer = Vector3.Distance(transform.position, player.position);
+
+                // 只要「路徑計算完成」且「物理距離」進入射程，就切換狀態
+                if (!agent.pathPending && distToPlayer <= tankData.attackRange)
                 {
                     currentState = TankState.Braking;
                 }

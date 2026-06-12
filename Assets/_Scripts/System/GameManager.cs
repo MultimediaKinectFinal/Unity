@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
     }
 
     // 分數計算
-    public void AddScore(GameObject tank,Vector3 _, int score)
+    public void AddScore(Vector3 _, int score)
     {
         if (CurrentState != GameState.Playing) return;
         
