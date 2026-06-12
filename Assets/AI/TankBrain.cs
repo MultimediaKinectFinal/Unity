@@ -34,9 +34,7 @@ public class TankBrain : MonoBehaviour
     {
         if (Time.time >= fireTimer) 
         {
-            Debug.Log("【Firing2】狀態持續中");
-
-            enemyFire.Shoot();
+            GameEvent.WhichEnemyHitPlayer(this.gameObject);
             fireTimer = Time.time + tankData.fireRate;
         }
     }
@@ -55,7 +53,7 @@ public class TankBrain : MonoBehaviour
 
         // 只有在狀態發生改變時，才打印一次 Log
         if (currentState != lastState) {
-            Debug.Log(gameObject.name + " 狀態切換: " + lastState + " -> " + currentState);
+            //Debug.Log(gameObject.name + " 狀態切換: " + lastState + " -> " + currentState);
             lastState = currentState;
         }
 
@@ -65,12 +63,12 @@ public class TankBrain : MonoBehaviour
         {
             case TankState.Moving:
                 // 讓 Agent 鎖定玩家為目標
-                Debug.Log("【Moving】狀態持續中");
+                //Debug.Log("【Moving】狀態持續中");
                 tankMovement.SetMoveTarget(player.position, true);
 
                 float distToPlayer = Vector3.Distance(transform.position, player.position);
 
-                Debug.Log("當前距離: " + distToPlayer + " | 設定射程: " + tankData.attackRange);
+                //Debug.Log("當前距離: " + distToPlayer + " | 設定射程: " + tankData.attackRange);
 
                 // 只要「路徑計算完成」且「物理距離」進入射程，就切換狀態
                 // if (!agent.pathPending && distToPlayer <= tankData.attackRange)
@@ -83,14 +81,14 @@ public class TankBrain : MonoBehaviour
                 // 檢查條件：如果距離足夠，強制觸發切換
                 if (distToPlayer <= tankData.attackRange)
                 {
-                    Debug.Log($"<color=green>【偵測到目標】距離 {distToPlayer:F2} 小於射程 {tankData.attackRange}，切換至 Braking</color>");
+                    //Debug.Log($"<color=green>【偵測到目標】距離 {distToPlayer:F2} 小於射程 {tankData.attackRange}，切換至 Braking</color>");
                     currentState = TankState.Braking; 
                 }
                 else
                 {
                     // 額外除錯：如果一直沒切換，告訴你為什麼
-                    if (Time.frameCount % 100 == 0) // 每 100 幀印一次，避免洗版
-                        Debug.Log($"【移動中】目前距離: {distToPlayer:F2} (射程: {tankData.attackRange})");
+                    //if (Time.frameCount % 100 == 0) // 每 100 幀印一次，避免洗版
+                        //Debug.Log($"【移動中】目前距離: {distToPlayer:F2} (射程: {tankData.attackRange})")
                 }
 
                 break;
@@ -111,18 +109,11 @@ public class TankBrain : MonoBehaviour
                 break;
 
             case TankState.Firing:
-                Debug.Log("in Firing");
                 FireLogic();
-                Debug.Log("【Firing】狀態持續中");
                 if (Time.time > stateChangeTime) {
                     stateChangeTime = Time.time + 3.0f;
                 }
                 break;
-                //FireLogic();
-                //if (Time.time > stateChangeTime) {
-                //    stateChangeTime = Time.time + 3.0f;
-                //}
-                //break;
         }
     }
 
