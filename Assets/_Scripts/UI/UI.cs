@@ -59,7 +59,7 @@ public class UI : MonoBehaviour
         gameOverPanel.SetActive(false);
 
         if (highScoreText != null)
-            highScoreText.text = $"Highest score: {GameManager.Instance.HighScore}";
+            highScoreText.text = $"Highest score: {Math.Max(GameManager.Instance.HighScore,GameManager.Instance.TotalScore)}";
     }
 
     private void ShowHUD()
