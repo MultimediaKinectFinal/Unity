@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
@@ -11,15 +12,9 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("重生點物件(Transform Array)")]
     public Transform[] spawnPoints;
 
-    [Header("節奏與難度")]
-    [Tooltip("初始生成間隔(秒)")]
-    public float initialSpawnInterval = 5f;
-
-    [Tooltip("最小生成間隔")]
-    public float minSpawnInterval = 1f;
-
-    [Tooltip("難度提升到最高所需時間(秒)")]
-    public float difficultyRampUpTime = 60f;
+    [Header("生成設定")]
+    [Tooltip("固定生成間隔(秒)")]
+    public float spawnInterval = 1f;
 
     [Tooltip("場上同時最多坦克數")]
     public int maxEnemiesOnScreen = 5;
@@ -27,6 +22,14 @@ public class EnemySpawner : MonoBehaviour
     private float timer = 0f;
     private int currentEnemyCount = 0;
     private bool isGameOver = false;
+
+    private static Vector3 lastSpawnPos;
+
+    private void Start()
+    {
+        // 加上隨機初始時間，讓多個生成器實例錯開第一次生成的時間
+        timer = Random.Range(0f, spawnInterval);
+    }
 
     private void OnEnable()
     {
@@ -51,31 +54,66 @@ public class EnemySpawner : MonoBehaviour
             if (timer <= 0f)
             {
                 SpawnEnemy();
-                timer = GetCurrentSpawnInterval();
+                // 每次生成後稍微加入隨機誤差，避免長時間後多個生成器步調同步
+                timer = spawnInterval + Random.Range(-0.1f, 0.1f);
             }
         }
     }
 
-    // 生成數度
-    private float GetCurrentSpawnInterval()
+    private List<int> shuffledIndices = new List<int>();
+
+    private int GetNextSpawnIndex()
     {
-        // 計算遊戲時間進度 (0 到 1) 
-        float timeProgress = Mathf.Clamp01(GameManager.Instance.GetPlayingTime() / difficultyRampUpTime);
-        
-        // 使用 Lerp 根據時間進度，在初始間隔和最小間隔之間進行線性插值
-        return Mathf.Lerp(initialSpawnInterval, minSpawnInterval, timeProgress);
+        if (shuffledIndices.Count == 0)
+        {
+            for (int i = 0; i < spawnPoints.Length; i++)
+                shuffledIndices.Add(i);
+
+            // Fisher-Yates 洗牌演算法
+            for (int i = 0; i < shuffledIndices.Count; i++)
+            {
+                int temp = shuffledIndices[i];
+                int randomIndex = Random.Range(i, shuffledIndices.Count);
+                shuffledIndices[i] = shuffledIndices[randomIndex];
+                shuffledIndices[randomIndex] = temp;
+            }
+        }
+
+        int nextIndex = shuffledIndices[0];
+        shuffledIndices.RemoveAt(0);
+        return nextIndex;
     }
 
     private void SpawnEnemy()
     {
-        int randomIndex = Random.Range(0, spawnPoints.Length);
+        int randomIndex = GetNextSpawnIndex();
         Transform selectedPoint = spawnPoints[randomIndex];
+
+        // 如果有多個生成點，避免與其他生成器實例連續生成在同一個位置
+        if (spawnPoints.Length > 1 && Vector3.Distance(selectedPoint.position, lastSpawnPos) < 1f)
+        {
+            if (shuffledIndices.Count > 0)
+            {
+                // 如果撞位且列表還有其他點，把這個點塞回最後，重新抽一個
+                shuffledIndices.Add(randomIndex);
+                randomIndex = GetNextSpawnIndex();
+                selectedPoint = spawnPoints[randomIndex];
+            }
+            else
+            {
+                // 如果剛好是這輪最後一個，就直接向後順延一格
+                randomIndex = (randomIndex + 1) % spawnPoints.Length;
+                selectedPoint = spawnPoints[randomIndex];
+            }
+        }
+
+        lastSpawnPos = selectedPoint.position;
 
         Instantiate(enemyTankPrefab, selectedPoint.position, enemyTankPrefab.transform.rotation);
 
         currentEnemyCount++;
 
-        Debug.Log($"敵軍數：{currentEnemyCount}/{maxEnemiesOnScreen} | 當前生成間隔: {GetCurrentSpawnInterval():F2}s");
+        Debug.Log($"敵軍數：{currentEnemyCount}/{maxEnemiesOnScreen} | 當前生成間隔: {spawnInterval:F2}s");
     }
 
     private void HandleEnemyDestroyed(GameObject tank,Vector3 deathPos, int score)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4446bb9764bf46946a0cf260fcffae6f, type: 3}
   m_Name: ShermanData
   m_EditorClassIdentifier: Assembly-CSharp::TankData
-  moveSpeed: 3.5
-  fireRate: 2
-  attackRange: 10
-  maxHP: 460
+  moveSpeed: 20
+  fireRate: 8
+  attackRange: 100
+  maxHP: 620
