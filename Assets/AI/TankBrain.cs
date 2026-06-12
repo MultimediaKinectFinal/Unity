@@ -34,8 +34,9 @@ public class TankBrain : MonoBehaviour
     {
         if (Time.time >= fireTimer) 
         {
-            Debug.Log("into fire");
-            GameEvent.WhichEnemyHitPlayer?.Invoke(this.gameObject);
+            Debug.Log("【Firing2】狀態持續中");
+
+            enemyFire.Shoot();
             fireTimer = Time.time + tankData.fireRate;
         }
     }
@@ -64,20 +65,41 @@ public class TankBrain : MonoBehaviour
         {
             case TankState.Moving:
                 // 讓 Agent 鎖定玩家為目標
+                Debug.Log("【Moving】狀態持續中");
                 tankMovement.SetMoveTarget(player.position, true);
 
                 float distToPlayer = Vector3.Distance(transform.position, player.position);
 
+                Debug.Log("當前距離: " + distToPlayer + " | 設定射程: " + tankData.attackRange);
+
                 // 只要「路徑計算完成」且「物理距離」進入射程，就切換狀態
-                if (!agent.pathPending && distToPlayer <= tankData.attackRange)
+                // if (!agent.pathPending && distToPlayer <= tankData.attackRange)
+                // {
+                //     currentState = TankState.Braking;
+                //     Debug.Log("【Moving, state change】狀態持續中");
+
+                // }
+
+                // 檢查條件：如果距離足夠，強制觸發切換
+                if (distToPlayer <= tankData.attackRange)
                 {
-                    currentState = TankState.Braking;
+                    Debug.Log($"<color=green>【偵測到目標】距離 {distToPlayer:F2} 小於射程 {tankData.attackRange}，切換至 Braking</color>");
+                    currentState = TankState.Braking; 
                 }
+                else
+                {
+                    // 額外除錯：如果一直沒切換，告訴你為什麼
+                    if (Time.frameCount % 100 == 0) // 每 100 幀印一次，避免洗版
+                        Debug.Log($"【移動中】目前距離: {distToPlayer:F2} (射程: {tankData.attackRange})");
+                }
+
                 break;
 
             case TankState.Braking:
                 // 1. 強制設定目標並讓 Agent 停下
                 tankMovement.SetMoveTarget(transform.position, false); 
+                Debug.Log("【Braking】狀態持續中");
+
                 
                 // 2. 核心修正：將坦克強制錨定在當前位置，確保它不會再滑行
                 agent.Warp(transform.position); 
@@ -91,6 +113,10 @@ public class TankBrain : MonoBehaviour
             case TankState.Firing:
                 Debug.Log("in Firing");
                 FireLogic();
+                Debug.Log("【Firing】狀態持續中");
+                if (Time.time > stateChangeTime) {
+                    stateChangeTime = Time.time + 3.0f;
+                }
                 break;
                 //FireLogic();
                 //if (Time.time > stateChangeTime) {
