@@ -775,10 +775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyTankPrefab: {fileID: 6044390683422837850, guid: 11fe20b9f70ed4cb298533af3ef562cd, type: 3}
-  spawnPoints:
-  - {fileID: 1817842550}
-  - {fileID: 956285139}
-  - {fileID: 1928355852}
+  spawnPoints: []
   initialSpawnInterval: 5
   minSpawnInterval: 1
   difficultyRampUpTime: 10
@@ -2697,15 +2694,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 587235675456121354, guid: e58807fe003624447ba046f36aa86f5a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.846913
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 587235675456121354, guid: e58807fe003624447ba046f36aa86f5a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000006377318
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 587235675456121354, guid: e58807fe003624447ba046f36aa86f5a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -253.5845
+      value: -53.5
       objectReference: {fileID: 0}
     - target: {fileID: 587235675456121354, guid: e58807fe003624447ba046f36aa86f5a, type: 3}
       propertyPath: m_LocalRotation.w

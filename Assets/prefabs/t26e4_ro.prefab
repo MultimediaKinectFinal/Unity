@@ -4684,6 +4684,7 @@ GameObject:
   - component: {fileID: 8306415353282417104}
   - component: {fileID: 7206440331348993477}
   - component: {fileID: 872402002888197629}
+  - component: {fileID: 2939702443128499964}
   m_Layer: 0
   m_Name: t26e4_ro
   m_TagString: Untagged
@@ -4810,6 +4811,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFire
   firePoint: {fileID: 0}
+--- !u!114 &2939702443128499964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6044390683422837850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d801176713e8694ba0bf95de8594551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TankHealth
+  tankData: {fileID: 11400000, guid: 7fa58bc5381dd4f408ec8ef60869317e, type: 2}
+  currentHP: 100
+  scoreValue: 100
+  isCannonDamaged: 0
+  healthBar: {fileID: 0}
+  healthBarCanvas: {fileID: 0}
 --- !u!1 &6915894021505047617
 GameObject:
   m_ObjectHideFlags: 0

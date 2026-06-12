@@ -25,7 +25,6 @@ public static class GameEvent
     // 修改為帶有兩個 Vector3 參數的 Action (發射起點, 發射方向)
     public static Action<Vector3, Vector3> OnPlayerFire;
     public static Action<bool> OnWaitingLoad;
-    public static Action<GameObject> EnemyCounterAttack;
 
     public static Action<char> KinectInput;
 }

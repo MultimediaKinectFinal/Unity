@@ -69,9 +69,9 @@ public class TankBrain : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.position);
         
 
-        Debug.Log("剩餘距離: " + agent.remainingDistance);
+        //Debug.Log("剩餘距離: " + agent.remainingDistance);
 
-        Debug.Log("Agent Speed: " + agent.speed + " | CurrentState: " + currentState);
+        //Debug.Log("Agent Speed: " + agent.speed + " | CurrentState: " + currentState);
 
         switch (currentState)
         {
