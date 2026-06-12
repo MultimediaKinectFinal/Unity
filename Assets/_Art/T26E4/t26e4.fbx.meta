@@ -3,7 +3,42 @@ guid: ea1a1a827a38d4f609ff1f2b4d19013a
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tank_chassis_01_skinned
+    second: {fileID: 2100000, guid: 203d1d64882f74ebfb846da902fa86f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tank_chassis_01_skinned.001
+    second: {fileID: 2100000, guid: 203d1d64882f74ebfb846da902fa86f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tank_guns_skinned
+    second: {fileID: 2100000, guid: a636063e9195641a2b1ebb279432e54c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tank_hull_01
+    second: {fileID: 2100000, guid: f6d000a43fdea459580863429f1dde5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tank_turret_01
+    second: {fileID: 2100000, guid: 9f82949c206c14594b6217ba23612b07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: track_mat
+    second: {fileID: 2100000, guid: 80d535232e8a74689915db77a1b1099d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: track_mat.001
+    second: {fileID: 2100000, guid: 1f0a132d97bd94d438c22b784b3c2b28, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
