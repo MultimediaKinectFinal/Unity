@@ -526,7 +526,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 79fd5ff9ffdf64cfbbb388e7eec0846d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 224ec769718c245e8a83958ff3dea819, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -987,7 +987,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 46e63cedf2ef44f1babd351dfd34ef4a, type: 2}
+  - {fileID: 2100000, guid: fbf949c8d618943d18a1b2041fc48630, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1266,7 +1266,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fa689d697dd574e91b27e4e7a250b181, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a6418d16cc91e42e4ab456e71bec5460, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

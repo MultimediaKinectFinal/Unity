@@ -12311,7 +12311,7 @@ MonoBehaviour:
     m_maxConvexHulls: 256
     m_projectHullVertices: 1
   baseMeshes:
-  - {fileID: 1923827605497368257, guid: 820e620a0f2d5e144bf6eb6a1916603c, type: 3}
+  - {fileID: 1923827605497368257, guid: ea1a1a827a38d4f609ff1f2b4d19013a, type: 3}
   computedMeshes:
   - {fileID: -7032643320346109647}
   - {fileID: 4593943937355853023}

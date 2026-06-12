@@ -43,10 +43,10 @@ MonoBehaviour:
   m_MissingCharacterSpriteUnicode: 0
   m_EmojiFallbackTextAssets: []
   m_defaultColorGradientPresetsPath: Color Gradient Presets/
-  m_defaultStyleSheet: {fileID: 11400000, guid: f952c082cb03451daed3ee968ac6c63e,
+  m_defaultStyleSheet: {fileID: 11400000, guid: 0acb314eb46b243c3ada6bbc14044b4f,
     type: 2}
   m_StyleSheetsResourcePath: 
-  m_leadingCharacters: {fileID: 4900000, guid: d82c1b31c7e74239bff1220585707d2b, type: 3}
-  m_followingCharacters: {fileID: 4900000, guid: fade42e8bc714b018fac513c043d323b,
+  m_leadingCharacters: {fileID: 4900000, guid: d796454fcfd974854b91586d412e67a3, type: 3}
+  m_followingCharacters: {fileID: 4900000, guid: 3e63967afb3a544d1a81edf257fe2ce8,
     type: 3}
   m_UseModernHangulLineBreakingRules: 0
