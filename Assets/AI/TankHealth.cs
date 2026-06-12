@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class TankHealth : MonoBehaviour
 {
@@ -62,6 +63,7 @@ public class TankHealth : MonoBehaviour
                 isCannonDamaged = true;
                 Debug.Log("砲管受損！無法發射！");
                 // 你可以在這裡加入一些視覺特效，例如砲管冒煙
+                StartCoroutine(RepairPart(part, 10f)); // 啟動修復計時
             }
             
             if (part == "Track") 
@@ -70,11 +72,33 @@ public class TankHealth : MonoBehaviour
                 var agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
                 if (agent != null) agent.speed = 0;
                 Debug.Log("履帶受損！坦克速度歸零！"); 
+                StartCoroutine(RepairPart(part, 10f));
             }
             
             if (currentHP <= 0 && !isDead)
             {
                 Die();
+            }
+        }
+    }
+
+    private IEnumerator RepairPart(string part, float delay)
+    {
+        yield return new WaitForSeconds(delay); // 等待 10 秒
+
+        if (part == "Cannon")
+        {
+            isCannonDamaged = false;
+            Debug.Log("砲管已修復！");
+        }
+        
+        if (part == "Track")
+        {
+            var agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+            if (agent != null && tankData != null) 
+            {
+                agent.speed = tankData.moveSpeed; // 恢復正常速度
+                Debug.Log("履帶已修復！");
             }
         }
     }
