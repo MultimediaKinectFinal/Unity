@@ -74,16 +74,16 @@ public class TankHealth : MonoBehaviour
             
             if (currentHP <= 0 && !isDead)
             {
-                Die();
+                Die(gameObject);
             }
         }
     }
 
-    private void Die()
+    private void Die(GameObject tank)
     {
         isDead = true;
         // 觸發擊毀事件，通知組員 1 號加分
-        GameEvent.OnEnemyDestroyed?.Invoke(transform.position, scoreValue);
+        GameEvent.OnEnemyDestroyed?.Invoke(tank,transform.position, scoreValue);
         
         // 依據要求，不 Destroy，只禁用組件
         GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
