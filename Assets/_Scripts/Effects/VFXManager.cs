@@ -32,7 +32,7 @@ public class VFXManager : MonoBehaviour
         GameEvent.OnEnemyDestroyed -= HandleEnemyDestroyed;
     }
 
-    private void SpawnMuzzleFlash()
+    private void SpawnMuzzleFlash(Vector3 pos1,Vector3 pos2)
     {
         Debug.Log("生成砲口火光");
     }
@@ -47,9 +47,9 @@ public class VFXManager : MonoBehaviour
         Instantiate(blockSmokePrefab, pos, Quaternion.identity);
     }
 
-    private void SpawnPenetrateSpark(Vector3 pos, string part, int damage)
+    private void SpawnPenetrateSpark(GameObject pos, string part, int damage)
     {
-        Instantiate(penetrateSparkPrefab, pos, Quaternion.identity);
+        Instantiate(penetrateSparkPrefab, pos.transform.position, Quaternion.identity);
     }
 
     private void HandleEnemyDestroyed(GameObject tank, Vector3 pos, int score)

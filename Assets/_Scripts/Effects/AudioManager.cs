@@ -29,7 +29,7 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    private void PlayShootSound()
+    private void PlayShootSound(Vector3 pos1,Vector3 pos2)
     {
         AudioSource.PlayClipAtPoint(shootClip, Camera.main.transform.position);
     }
@@ -44,12 +44,12 @@ public class AudioManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(blockClip, pos);
     }
 
-    private void PlayPenetrateSound(Vector3 pos, string part, int damage)
+    private void PlayPenetrateSound(GameObject pos, string part, int damage)
     {
-        AudioSource.PlayClipAtPoint(penetrateClip, pos);
+        AudioSource.PlayClipAtPoint(penetrateClip, pos.transform.position);
     }
 
-    private void PlayExplosionSound(GameObject tank, Vector3 pos, int score)
+    private void PlayExplosionSound(GameObject tank,Vector3 pos, int score)
     {
         AudioSource.PlayClipAtPoint(explosionClip, pos);
     }
