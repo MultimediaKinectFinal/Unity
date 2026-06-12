@@ -12,18 +12,15 @@ public class PlayerController : MonoBehaviour
     [Header("畫圈移動量")] public float normalMoveAmount = 3f;
     public float zoomedMoveAmount = 0.2f;
 
-    [Header("上下旋轉角度限制 (Pitch)")]
-    public float minPitch = -5f;
+    [Header("上下旋轉角度限制 (Pitch)")] public float minPitch = -5f;
     public float maxPitch = 38f;
 
-    [Header("左右旋轉角度限制 (Yaw)")]
-    public float limitYaw = 28f;
+    [Header("左右旋轉角度限制 (Yaw)")] public float limitYaw = 28f;
     private float currentPitch = 0f;
     private float currentYaw = 0f;
     private bool loaded = false;
 
-    [Header("開鏡設定 (Zoom)")]
-    public Camera mainCamera;
+    [Header("開鏡設定 (Zoom)")] public Camera mainCamera;
     public float normalFOV = 60f;
     public float zoomedFOV = 6f;
 
@@ -105,7 +102,6 @@ public class PlayerController : MonoBehaviour
 
                 GameEvent.OnWaitingLoad?.Invoke(true);
                 GameEvent.OnPlayerFire?.Invoke(cameraTransform.position, cameraTransform.forward);
-
             }
         }
 
