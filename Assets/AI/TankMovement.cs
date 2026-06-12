@@ -15,7 +15,7 @@ public class TankMovement : MonoBehaviour
         if (agent == null || !agent.isOnNavMesh) return;
 
         agent.isStopped = !shouldMove; // 核心：由 Brain 決定停止還是移動
-        Debug.Log("設定移動狀態: " + shouldMove);
+        //Debug.Log("設定移動狀態: " + shouldMove);
         
         if (shouldMove)
         {
