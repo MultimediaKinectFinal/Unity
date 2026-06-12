@@ -59,20 +59,7 @@ public class TankBrain : MonoBehaviour
             lastState = currentState;
         }
 
-        // 刪除那兩行無用的強制重置代碼
-
-        if (agent.pathStatus == NavMeshPathStatus.PathPartial) {
-            Debug.LogWarning("路徑不完整 (Partial Path)");
-        } else if (agent.pathStatus == NavMeshPathStatus.PathInvalid) {
-            Debug.LogWarning("路徑無效 (Invalid Path) - Agent 找不到目標！");
-        }
-
         float distance = Vector3.Distance(transform.position, player.position);
-        
-
-        //Debug.Log("剩餘距離: " + agent.remainingDistance);
-
-        //Debug.Log("Agent Speed: " + agent.speed + " | CurrentState: " + currentState);
 
         switch (currentState)
         {
@@ -124,12 +111,18 @@ public class TankBrain : MonoBehaviour
                 break;
 
             case TankState.Firing:
+                Debug.Log("in Firing");
                 FireLogic();
                 Debug.Log("【Firing】狀態持續中");
                 if (Time.time > stateChangeTime) {
                     stateChangeTime = Time.time + 3.0f;
                 }
                 break;
+                //FireLogic();
+                //if (Time.time > stateChangeTime) {
+                //    stateChangeTime = Time.time + 3.0f;
+                //}
+                //break;
         }
     }
 

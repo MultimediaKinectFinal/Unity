@@ -94,18 +94,10 @@ public class PlayerController : MonoBehaviour
             if (loaded && GameManager.Instance.CurrentState == GameState.Playing)
             {
                 Transform cameraTransform = Camera.main.transform;
-
-                Debug.Log($"【事件觸發】呼叫軌跡如下：\n{Environment.StackTrace}");
-
-                GameEvent.OnPlayerFire?.Invoke(cameraTransform.position, cameraTransform.forward);
-
-                Debug.Log($"【事件觸發】呼叫軌跡如下：\n{Environment.StackTrace}");
-
                 loaded = false;
-
                 targetRecoil += recoilForce;
-
                 GameEvent.OnWaitingLoad?.Invoke(true);
+                GameEvent.OnPlayerFire?.Invoke(cameraTransform.position, cameraTransform.forward);
             }
         }
 

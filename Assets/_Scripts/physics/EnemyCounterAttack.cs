@@ -183,6 +183,7 @@ public class EnemyFireManager : MonoBehaviour
     private void TriggerGameOver(float distance)
     {
         Debug.LogError($"<color=red>【GAME OVER 玩家陣亡】敵方砲彈砸進 4x4 核心地面致命區！距離鏡頭: {distance:F2}m</color>");
+        GameEvent.OnGameOver?.Invoke();
     }
 
     private Transform FindChildTarget(Transform current, string targetName)
